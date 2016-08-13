@@ -48,6 +48,12 @@
             android:layout_height="48dp"
             android:src="@mipmap/ic_launcher"/>
 
+        <ImageView
+            android:id="@+id/iv_pic_imageloder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
     </LinearLayout>
 
 </android.support.design.widget.CoordinatorLayout>
