@@ -4,12 +4,12 @@ import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-public class LogManager {
+public class LogHelper {
 
 	public static boolean debug = true;
 
 	public static void setDebug(boolean debug) {
-		LogManager.debug = debug;
+		LogHelper.debug = debug;
 	}
 
 	public static void v(String tag, String log) {

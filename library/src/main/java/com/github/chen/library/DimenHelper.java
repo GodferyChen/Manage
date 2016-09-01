@@ -4,7 +4,7 @@ package com.github.chen.library;
 import android.content.Context;
 import android.util.TypedValue;
 
-public class DimenManager {
+public class DimenHelper {
 
     // dp转像素
     public static float dp2px(Context context, float value) {

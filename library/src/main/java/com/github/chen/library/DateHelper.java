@@ -6,7 +6,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class DateManager {
+public class DateHelper {
 
     public final static String yMdHms = "yyyy-MM-dd HH:mm:ss";
     public final static String yMdHm = "yyyy-MM-dd HH:mm";
@@ -17,7 +17,7 @@ public class DateManager {
     public final static String Hms = "HH:mm:ss";
     public final static String Hm = "HH:mm";
 
-    private DateManager() {
+    private DateHelper() {
     }
 
     // 切割秒为 小时、分钟、秒

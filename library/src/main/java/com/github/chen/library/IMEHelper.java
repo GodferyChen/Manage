@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-public class IMEManager {
+public class IMEHelper {
 
 	public static void openIME(final EditText editText) {
 		new Handler().postDelayed(new Runnable() {

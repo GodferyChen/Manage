@@ -5,26 +5,18 @@ import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.animation.ViewPropertyAnimation;
-import com.github.chen.library.DimenManager;
+import com.github.chen.library.DimenHelper;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.assist.ImageSize;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
-import com.nostra13.universalimageloader.core.process.BitmapProcessor;
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Transformation;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -69,8 +61,8 @@ public class MainActivity extends AppCompatActivity {
 
         ImageLoader imageLoader = ImageLoader.getInstance();
         imageLoader.init(ImageLoaderConfiguration.createDefault(context));
-        ImageSize targetSize = new ImageSize((int) DimenManager.dp2px(context, 48), (int)
-                DimenManager.dp2px(context, 48));
+        ImageSize targetSize = new ImageSize((int) DimenHelper.dp2px(context, 48), (int)
+                DimenHelper.dp2px(context, 48));
 //        imageLoader.loadImage(url, new ImageLoadingListener() {
 //            @Override
 //            public void onLoadingStarted(String s, View view) {
