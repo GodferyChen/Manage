@@ -19,6 +19,16 @@ public class JSONHelper {
         return object;
     }
 
+    public static HashMap<String,Object> toMap(JSONObject object){
+        HashMap<String,Object> map = new HashMap<>();
+        Iterator<String> it = object.keys();
+        while (it.hasNext()){
+            String key = it.next();
+            map.put(key,object.opt(key));
+        }
+        return map;
+    }
+
     /**
      * 把一个JSONArray转化成List，其中JSONArray的子项是JSONObject
      * @param array
@@ -39,6 +49,21 @@ public class JSONHelper {
             }
         }
         return data;
+    }
+
+    public static JSONArray toJSONArray(List<HashMap<String,Object>> list) throws JSONException{
+        JSONArray array = new JSONArray();
+        if(list != null && list.size() > 0){
+            for (int i = 0; i < list.size(); i++) {
+                JSONObject object = new JSONObject();
+                HashMap<String,Object> map = list.get(i);
+                for (String key : map.keySet()) {
+                    object.put(key,map.get(key));
+                }
+                array.put(object);
+            }
+        }
+        return array;
     }
 
 }
