@@ -96,4 +96,5 @@ public class DateHelper {
     public static int millis(long timestamp) {
         return calendar(timestamp).get(Calendar.MILLISECOND);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.github.chen.manager;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
@@ -98,5 +99,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //获取堆大小
+        ActivityManager manager = (ActivityManager) getSystemService(Context.ACTIVITY_SERVICE);
+        int heapSize = manager.getMemoryClass();
+
+    }
+
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        //一旦触发说明用户离开程序，此时可以进行资源释放操作
+        if(level == TRIM_MEMORY_UI_HIDDEN){
+
+        }
     }
 }
