@@ -1,9 +1,9 @@
-package com.github.chen.manager;
+package com.github.chen.manager.activity;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,6 +12,10 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.chen.library.DimenHelper;
+import com.github.chen.manager.CircleImageTransformation;
+import com.github.chen.manager.R;
+import com.github.chen.manager.RoundTransformation;
+import com.github.chen.manager.base.BaseActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
@@ -19,24 +23,26 @@ import com.nostra13.universalimageloader.core.assist.ImageSize;
 import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
 import com.squareup.picasso.Picasso;
 
-public class MainActivity extends AppCompatActivity {
+public class ImageLoaderActivity extends BaseActivity {
 
-    private static final String TAG = "MainActivity";
+    public static void start(Context context) {
+        Intent starter = new Intent(context, ImageLoaderActivity.class);
+//        starter.putExtra();
+        context.startActivity(starter);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_image_loader);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        Context context = this;
+        initToolbar();
         ImageView ivCircle = (ImageView) findViewById(R.id.iv_pic_circle);
         ImageView ivSquare = (ImageView) findViewById(R.id.iv_pic_square);
         ImageView ivGlide = (ImageView) findViewById(R.id.iv_pic_glide);
         final ImageView ivLoader = (ImageView) findViewById(R.id.iv_pic_imageloder);
         String url = "http://tnb.hanyouapp.com/upload/201607/15/1468580192589.jpg";
-        Picasso.with(context)
+        Picasso.with(mActivity)
                 .load(url)
                 .centerCrop()
                 .resize(250, 250)
@@ -44,26 +50,26 @@ public class MainActivity extends AppCompatActivity {
                 .placeholder(R.mipmap.ic_launcher)
                 .transform(new CircleImageTransformation())
                 .into(ivCircle);
-        Picasso.with(context)
+        Picasso.with(mActivity)
                 .load(url)
                 .centerCrop()
                 .resize(250, 250)
                 .error(R.mipmap.ic_launcher)
                 .placeholder(R.mipmap.ic_launcher)
                 .into(ivSquare);
-        Glide.with(context)
+        Glide.with(mActivity)
                 .load(url)
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .error(R.mipmap.ic_launcher)
                 .animate(R.anim.alpha)
                 .placeholder(R.mipmap.ic_launcher)
-                .transform(new RoundTransformation(context))
+                .transform(new RoundTransformation(mActivity))
                 .into(ivGlide);
 
         ImageLoader imageLoader = ImageLoader.getInstance();
-        imageLoader.init(ImageLoaderConfiguration.createDefault(context));
-        ImageSize targetSize = new ImageSize((int) DimenHelper.dp2px(context, 48), (int)
-                DimenHelper.dp2px(context, 48));
+        imageLoader.init(ImageLoaderConfiguration.createDefault(mActivity));
+        ImageSize targetSize = new ImageSize((int) DimenHelper.dp2px(mActivity, 48), (int)
+                DimenHelper.dp2px(mActivity, 48));
 //        imageLoader.loadImage(url, new ImageLoadingListener() {
 //            @Override
 //            public void onLoadingStarted(String s, View view) {
