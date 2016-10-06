@@ -1,4 +1,4 @@
-package com.github.chen.manager.activity;
+package com.github.chen.manager.ui;
 
 import android.content.Context;
 import android.content.Intent;

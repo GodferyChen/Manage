@@ -1,5 +1,12 @@
 <resources>
     <string name="app_name">Manager</string>
+
+    <string name="waiting">请稍后...</string>
+    <string name="http_request_failure">网络错误，请重试</string>
+    <string name="http_submit_failure">提交失败</string>
+    <string name="http_unknown">未知错误，请稍后重试</string>
+    <string name="http_not_network">无网络，请检查网络连接</string>
+
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="large_text">
         "Material is the metaphor.\n\n"

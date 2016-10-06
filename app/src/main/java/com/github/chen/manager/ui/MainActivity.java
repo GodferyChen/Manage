@@ -1,17 +1,14 @@
-package com.github.chen.manager.activity;
+package com.github.chen.manager.ui;
 
-import android.app.Service;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 import com.github.chen.library.LogHelper;
 import com.github.chen.manager.R;
 import com.github.chen.manager.base.BaseActivity;
+import com.github.chen.manager.ui.login.LoginActivity;
 import com.google.common.base.Optional;
 
 import static com.google.common.base.Strings.emptyToNull;

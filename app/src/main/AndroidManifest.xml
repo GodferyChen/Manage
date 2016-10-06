@@ -3,6 +3,7 @@
           package="com.github.chen.manager">
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
         android:name=".base.AppContext"
@@ -12,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activity.MainActivity"
+            android:name=".ui.MainActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
@@ -23,28 +24,28 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.ImageLoaderActivity"
+            android:name=".ui.ImageLoaderActivity"
             android:label="imageLoader"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-            android:name=".activity.HandlerActivity"
+            android:name=".ui.HandlerActivity"
             android:label="handler"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-            android:name=".activity.TextInputActivity"
+            android:name=".ui.TextInputActivity"
             android:label="input"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
-            android:name=".activity.LoginActivity"
+            android:name=".ui.login.LoginActivity"
             android:label="login"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"

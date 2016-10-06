@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".activity.LoginActivity">
+    tools:context=".ui.login.LoginActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                     android:id="@+id/email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Email"
+                    android:hint="UserName"
                     android:inputType="textEmailAddress"
                     android:maxLines="1" />
 
@@ -93,12 +93,13 @@
             </android.support.design.widget.TextInputLayout>
 
             <Button
-                android:id="@+id/email_sign_in_button"
+                android:id="@+id/sign_in_button"
                 style="?android:textAppearanceSmall"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorPrimaryDark"
                 android:text="Login"
+                android:onClick="onClick"
                 android:textColor="@android:color/white"
                 android:textAllCaps="false"
                 android:textSize="18sp"

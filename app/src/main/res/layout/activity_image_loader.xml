@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/background"
     android:fitsSystemWindows="true"
-    tools:context=".activity.ImageLoaderActivity">
+    tools:context=".ui.ImageLoaderActivity">
 
     <include layout="@layout/layout_toolbar"/>
 

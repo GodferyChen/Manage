@@ -1,5 +1,6 @@
 package com.github.chen.library;
 
+import android.content.Context;
 import android.text.TextUtils;
 
 import java.util.regex.Pattern;
@@ -147,5 +148,42 @@ public class ValidatorHelper {
      */
     public static boolean isIPAddr(String ipAddr) {
         return Pattern.matches(REGEX_IP_ADDR, ipAddr);
+    }
+
+
+    /**
+     * 说明:验证邮箱格式
+     *
+     * @param email 邮箱地址
+     * @return 邮箱地址格式正确或错误
+     */
+    public static boolean isEmailValid(Context context, String email) {
+        if (email.length() == 0) {
+            LogHelper.tS(context, "请输入邮箱!");
+            return false;
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            LogHelper.tS(context, "邮箱格式不正确!");
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 说明:验证密码格式
+     *
+     * @param password 密码
+     * @return 密码格式正确或错误
+     */
+    public static boolean isPasswordValid(Context context, String password) {
+        if (password.length() == 0) {
+            LogHelper.tS(context, "请输入密码!");
+            return false;
+        } else if (password.length() < 6) {
+            LogHelper.tS(context, "请输入至少6位密码!");
+            return false;
+        } else {
+            return true;
+        }
     }
 }
