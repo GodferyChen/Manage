@@ -47,6 +47,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_login:
                 LoginActivity.start(mActivity);
                 break;
+            case R.id.btn_select:
+                SelectViewActivity.start(mActivity);
+                break;
             default:
                 break;
         }
