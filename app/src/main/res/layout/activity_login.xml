@@ -23,12 +23,6 @@
     </android.support.design.widget.AppBarLayout>
 
     <!-- Login progress -->
-    <ProgressBar
-        android:id="@+id/login_progress"
-        style="?android:attr/progressBarStyleLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="gone" />
 
     <ScrollView
         android:id="@+id/login_form"
@@ -107,5 +101,12 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <ProgressBar
+        android:id="@+id/login_progress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
 
 </android.support.design.widget.CoordinatorLayout>
