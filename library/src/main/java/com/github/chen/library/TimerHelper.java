@@ -53,11 +53,7 @@ public class TimerHelper implements Serializable {
      * @return
      */
     public boolean isOutOfRange(){
-        if(executions >= executionsMax){
-            return true;
-        }else {
-            return false;
-        }
+        return executions >= executionsMax;
     }
 
     /**

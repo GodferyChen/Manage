@@ -1,5 +1,6 @@
 package com.github.chen.library;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.DhcpInfo;
 import android.net.wifi.ScanResult;
@@ -23,7 +24,6 @@ public class WifiHelper {
     private List<ScanResult> mWifiList = null;
     private List<WifiConfiguration> mWifiConfiguration;
     private WifiManager.WifiLock mWifiLock;
-    private DhcpInfo dhcpInfo;
     private LinkCallBack linkCallBack;
 
     public WifiHelper(Context context) {
@@ -107,13 +107,14 @@ public class WifiHelper {
     public StringBuilder lookUpScan() {// 查看扫描结果
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < mWifiList.size(); i++) {
-            stringBuilder.append("Index_" + new Integer(i + 1).toString() + ":");
+            stringBuilder.append("Index_" + Integer.valueOf(i + 1).toString() + ":");
             stringBuilder.append((mWifiList.get(i)).toString());
             stringBuilder.append("/n");
         }
         return stringBuilder;
     }
 
+    @SuppressLint("HardwareIds")
     public String getMacAddress() {
         return (mWifiInfo == null) ? "NULL" : mWifiInfo.getMacAddress();
     }
@@ -123,6 +124,7 @@ public class WifiHelper {
     }
 
     public DhcpInfo getDhcpInfo() {
+        DhcpInfo dhcpInfo;
         return dhcpInfo = mWifiManager.getDhcpInfo();
     }
 

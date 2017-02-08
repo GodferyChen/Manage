@@ -1,6 +1,8 @@
 package com.github.chen.library;
 
 
+import java.util.Locale;
+
 public class ByteHelper {
 
     /**
@@ -11,7 +13,7 @@ public class ByteHelper {
      */
     public static String byteToString(byte[] data) {
         if (data != null && data.length > 0) {
-            String strText = String.format("%d bytes [", data.length);
+            String strText = String.format(Locale.getDefault(),"%d bytes [", data.length);
             for (int i = 0; i < data.length; i++) {
                 strText += String.format("%x ", data[i]);
             }

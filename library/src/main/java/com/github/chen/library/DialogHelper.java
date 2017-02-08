@@ -18,7 +18,7 @@ public class DialogHelper {
         return showProgressDialog(activity, activity.getString(message));
     }
 
-    public static ProgressDialog showProgressDialog(Activity activity, String
+    private static ProgressDialog showProgressDialog(Activity activity, String
             message) {
         ProgressDialog progressDialog = new ProgressDialog(activity);
         progressDialog.setMessage(message);
@@ -48,8 +48,8 @@ public class DialogHelper {
         }
     }
 
-    public static AlertDialog showSystemDialog(Context context, String title,
-                                               String message) {
+    private static AlertDialog showSystemDialog(Context context, String title,
+                                                String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context
                 .getApplicationContext(), R.style.Theme_AppCompat_Light_Dialog_Alert);
         builder.setMessage(message)

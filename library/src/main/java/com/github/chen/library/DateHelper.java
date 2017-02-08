@@ -53,7 +53,7 @@ public class DateHelper {
     }
 
     // 根据规则和时区，把字符串转换为时间戳
-    public static long timestamp(String datetime, String pattern, Locale locale) {
+    private static long timestamp(String datetime, String pattern, Locale locale) {
         try {
             if (locale == null) locale = Locale.getDefault();
             return new SimpleDateFormat(pattern, locale).parse(datetime).getTime();

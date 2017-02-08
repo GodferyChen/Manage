@@ -133,15 +133,7 @@ public class IMEHelper {
 
 		@Override
 		public boolean isAllowed(char c) {
-			if ('0' <= c && c <= '9')
-				return true;
-			if ('a' <= c && c <= 'z')
-				return true;
-			if ('A' <= c && c <= 'Z')
-				return true;
-			if (mAllowed.indexOf(c) != -1)
-				return true;
-			return false;
+			return '0' <= c && c <= '9' || 'a' <= c && c <= 'z' || 'A' <= c && c <= 'Z' || mAllowed.indexOf(c) != -1;
 		}
 	}
 
@@ -157,11 +149,7 @@ public class IMEHelper {
 
 		@Override
 		public boolean isAllowed(char c) {
-			if (32 <= c && c <= 127)
-				return true;
-			if (160 <= c && c <= 255)
-				return true;
-			return false;
+			return 32 <= c && c <= 127 || 160 <= c && c <= 255;
 		}
 	}
 

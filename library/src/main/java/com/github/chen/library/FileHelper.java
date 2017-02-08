@@ -50,11 +50,7 @@ public class FileHelper {
                 if(calculateHidden) {
                     return true;
                 } else {
-                    if(pathname.isHidden()) {
-                        return false;
-                    } else {
-                        return true;
-                    }
+                    return !pathname.isHidden();
                 }
             }
         };
@@ -147,26 +143,16 @@ public class FileHelper {
     /**
      * 创建新目录
      */
-    public static boolean newFolder(File file) {
-
-        if(!file.exists()) {
-            return file.mkdirs();
-        } else {
-            return false;
-        }
+    private static boolean newFolder(File file) {
+        return !file.exists() && file.mkdirs();
     }
 
     /**
      * 重新命名目录或文件的名字
      */
     public static boolean rename(File file, String newName) {
-
         File newFile = new File(newName);
-        if(!newFile.exists()) {
-            return file.renameTo(newFile);
-        } else {
-            return false;
-        }
+        return !newFile.exists() && file.renameTo(newFile);
     }
 
     /**
