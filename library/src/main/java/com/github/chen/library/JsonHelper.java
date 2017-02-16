@@ -66,4 +66,39 @@ public class JSONHelper {
         return array;
     }
 
+    /**
+     * 追加JsonArray数据
+     *
+     * @param mData
+     * @param array
+     * @return
+     */
+    public static JSONArray joinJSONArray(JSONArray mData, JSONArray array) {
+        StringBuffer buffer = new StringBuffer();
+        try {
+            int len = mData.length();
+            for (int i = 0; i < len; i++) {
+                String obj1 = String.valueOf(mData.get(i));
+                if (i == len - 1)
+                    buffer.append(obj1);
+                else
+                    buffer.append(obj1).append(",");
+            }
+            len = array.length();
+            if (len > 0)
+                buffer.append(",");
+            for (int i = 0; i < len; i++) {
+                String obj1 = String.valueOf(array.get(i));
+                if (i == len - 1)
+                    buffer.append(obj1);
+                else
+                    buffer.append(obj1).append(",");
+            }
+            buffer.insert(0, "[").append("]");
+            return new JSONArray(buffer.toString());
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
 }

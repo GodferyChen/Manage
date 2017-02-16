@@ -7,8 +7,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.ConsoleMessage;
+import android.webkit.JavascriptInterface;
+import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
@@ -18,10 +22,15 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import com.github.chen.library.LogHelper;
 import com.github.chen.manager.R;
 import com.github.chen.manager.retrofit.RetrofitHelper;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -47,6 +56,11 @@ public class SimpleWebActivity extends BaseActivity {
     private int type;
     private String url;
     private ProgressBar progressBar;
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     public static void start(Context context, String urlAddress, String action) {
         Intent starter = new Intent(context, SimpleWebActivity.class);
@@ -64,6 +78,7 @@ public class SimpleWebActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @SuppressLint({"JavascriptInterface", "AddJavascriptInterface"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,8 +97,65 @@ public class SimpleWebActivity extends BaseActivity {
             // Restore the previous URL and history stack
             webView.restoreState(savedInstanceState);
         }
-        webView.addJavascriptInterface(this, "nativeMethod");
+        //1.JavaScript调用java方法,由于4.2以下存在安全漏洞，即使加上JavascriptInterface注解也不推荐使用
+        webView.addJavascriptInterface(new JavascriptInterface(), "nativeMethod");
         webView.loadUrl(url);
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
+
+        //java调用JavaScript，4.4及其以上可用，scriptString为Javascript代码
+        //ValueCallback用来获取JavaScript的执行结果，这是一个异步调用，ValueCallback并不是在UI线程执行的
+        webView.evaluateJavascript("scriptString", new ValueCallback<String>() {
+            @Override
+            public void onReceiveValue(String value) {
+
+            }
+        });
+    }
+
+    class JavascriptInterface {
+
+        @android.webkit.JavascriptInterface
+        public void showToast(String toast) {
+            Toast.makeText(mActivity, toast, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    public Action getIndexApiAction() {
+        Thing object = new Thing.Builder()
+                .setName("SimpleWeb Page") // TODO: Define a title for the content shown.
+                // TODO: Make sure this auto-generated URL is correct.
+                .setUrl(Uri.parse("http://[ENTER-YOUR-URL-HERE]"))
+                .build();
+        return new Action.Builder(Action.TYPE_VIEW)
+                .setObject(object)
+                .setActionStatus(Action.STATUS_TYPE_COMPLETED)
+                .build();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        AppIndex.AppIndexApi.start(client, getIndexApiAction());
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        AppIndex.AppIndexApi.end(client, getIndexApiAction());
+        client.disconnect();
     }
 
     /**
@@ -135,16 +207,17 @@ public class SimpleWebActivity extends BaseActivity {
     /**
      * 设置回退
      * 覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+     *
      * @param keyCode
      * @param event
      * @return
      */
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(webView != null && webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){
+        if (webView != null && webView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {
             webView.goBack();// goBack()表示返回WebView的上一页面
             return true;
-        }else {
+        } else {
             finish();
         }
         return super.onKeyDown(keyCode, event);
@@ -152,6 +225,12 @@ public class SimpleWebActivity extends BaseActivity {
 
     private class MyWebViewClient extends WebViewClient {
 
+        /**
+         *  2.JavaScript调用java方法，通过拦截所有webVIew的url跳转，执行自身的逻辑
+         * @param view
+         * @param url
+         * @return
+         */
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             LogHelper.d(TAG, "shouldOverrideUrlLoading --------> " + url);
@@ -162,7 +241,7 @@ public class SimpleWebActivity extends BaseActivity {
             } catch (UnsupportedEncodingException e1) {
                 e1.printStackTrace();
             }
-            LogHelper.d(TAG,url);
+            LogHelper.d(TAG, url);
             if (url.startsWith(ANDROID_CALLBACK)) {
                 url = url.substring(ANDROID_CALLBACK.length());
                 JSONTokener jsonParser = new JSONTokener(url);
@@ -179,7 +258,7 @@ public class SimpleWebActivity extends BaseActivity {
                     return true;
                 }
             } else {
-                if (RetrofitHelper.networkEnable(mActivity,false)) {
+                if (RetrofitHelper.networkEnable(mActivity, false)) {
                     progressBar.setVisibility(View.VISIBLE);
                     onLoadResource(view, url);
                     view.loadUrl(url);
@@ -211,11 +290,33 @@ public class SimpleWebActivity extends BaseActivity {
     }
 
     private class MyWebChromeClient extends WebChromeClient {
+
+        /**
+         * 3.JavaScript调用java方法,此方法是android提供给JS调试在Native代码里打印日志信息的API
+         * 同时也成了一种js与Native代码通信的方法
+         * Js代码里调用console.log('xxx');
+         * @param consoleMessage
+         * @return
+         */
+        @Override
+        public boolean onConsoleMessage(ConsoleMessage consoleMessage) {
+            String msg = consoleMessage.message();//JavaScript输入的Log内容
+            return super.onConsoleMessage(consoleMessage);
+        }
+
+        /**
+         * 展示警告信息
+         * @param view
+         * @param url
+         * @param message
+         * @param result
+         * @return
+         */
         @Override
         public boolean onJsAlert(WebView view, String url, String message, JsResult result) {
-            LogHelper.d(TAG,"onJsAlert ---------> view = [" + view + "], url = [" + url + "], " +
+            LogHelper.d(TAG, "onJsAlert ---------> view = [" + view + "], url = [" + url + "], " +
                     "message = [" + message + "], result = [" + result + "]");
-            switch (message){
+            switch (message) {
                 case "提交成功":
 
                     break;
@@ -226,19 +327,51 @@ public class SimpleWebActivity extends BaseActivity {
             return super.onJsAlert(view, url, message, result);
         }
 
+        /**
+         * 展示确认信息
+         * @param view
+         * @param url
+         * @param message
+         * @param result
+         * @return
+         */
+        @Override
+        public boolean onJsConfirm(WebView view, String url, String message, JsResult result) {
+            return super.onJsConfirm(view, url, message, result);
+        }
+
+        /**
+         * 展示提示信息
+         * 4.JavaScript调用java方法 鉴于onJsAlert和onJsConfirm使用率很高，所以倾向于用onJsPrompt()
+         * Js调用 window.prompt(message,value);
+         *
+         * @param view
+         * @param url
+         * @param message
+         * @param defaultValue
+         * @param result
+         * @return
+         */
+        @Override
+        public boolean onJsPrompt(WebView view, String url, String message, String defaultValue, JsPromptResult result) {
+            //处理Js调用的逻辑
+            result.confirm();
+            return true;
+        }
+
         @Override
         public boolean onShowFileChooser(WebView webView, ValueCallback<Uri[]> filePathCallback, FileChooserParams fileChooserParams) {
-            LogHelper.d(TAG,"onShowFileChooser-------->");
+            LogHelper.d(TAG, "onShowFileChooser-------->");
             return super.onShowFileChooser(webView, filePathCallback, fileChooserParams);
         }
 
         @Override
         public void onProgressChanged(WebView view, int newProgress) {
-            LogHelper.d(TAG,"onProgressChanged--------->");
-            if(newProgress > 0 && newProgress < 100){
+            LogHelper.d(TAG, "onProgressChanged--------->");
+            if (newProgress > 0 && newProgress < 100) {
                 progressBar.setVisibility(View.VISIBLE);
                 progressBar.setProgress(newProgress);
-            }else {
+            } else {
                 progressBar.setVisibility(View.GONE);
             }
             super.onProgressChanged(view, newProgress);
@@ -246,7 +379,7 @@ public class SimpleWebActivity extends BaseActivity {
 
         @Override
         public void onReceivedTitle(WebView view, String title) {
-            LogHelper.d(TAG,"onReceivedTitle-------->" + title);
+            LogHelper.d(TAG, "onReceivedTitle-------->" + title);
             mToolbar.setTitle(title);
             super.onReceivedTitle(view, title);
         }
