@@ -52,6 +52,13 @@
             android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
+            android:name=".ui.LifeCycleActivity"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="lifeCycle"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateAlwaysHidden">
+        </activity>
+        <activity
             android:name=".ui.SelectViewActivity"
             android:label="@string/title_activity_select_view"
             android:theme="@style/AppTheme">

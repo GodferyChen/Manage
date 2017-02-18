@@ -1,8 +1,11 @@
 package com.github.chen.manager.ui;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 
 import com.github.chen.library.LogHelper;
@@ -49,6 +52,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_select:
                 SelectViewActivity.start(mActivity);
+                break;
+            case R.id.btn_life_cycle:
+                LifeCycleActivity.start(mActivity);
                 break;
             default:
                 break;
