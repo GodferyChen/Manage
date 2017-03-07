@@ -9,7 +9,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
-public class JSONHelper {
+public class JsonHelper {
 
     public static JSONObject toJSONObject(HashMap<String,Object> map) throws JSONException{
         JSONObject object = new JSONObject();

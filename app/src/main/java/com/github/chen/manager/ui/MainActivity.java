@@ -56,6 +56,9 @@ public class MainActivity extends BaseActivity {
             case R.id.btn_life_cycle:
                 LifeCycleActivity.start(mActivity);
                 break;
+            case R.id.btn_image_upload:
+                ImageUploadActivity.start(mActivity);
+                break;
             default:
                 break;
         }

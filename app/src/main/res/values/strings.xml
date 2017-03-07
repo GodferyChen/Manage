@@ -102,4 +102,5 @@
     <string name="title_activity_login">LoginActivity</string>
     <string name="action_next_text">下一个</string>
     <string name="title_activity_select_view">SelectViewActivity</string>
+    <string name="title_activity_image_upload">ImageUploadActivity</string>
 </resources>

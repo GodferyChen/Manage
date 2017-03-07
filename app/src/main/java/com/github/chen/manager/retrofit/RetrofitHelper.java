@@ -34,7 +34,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class RetrofitHelper {
 
     public static final String ERRH5 = "file:///android_asset/err.html";// 错误页面地址
-    public static final String BASE_URL = "http://tnb.hanyouapp.com/";// 必须以 “/” 结束
+    public static final String BASE_URL = "http://yun.kongtang120.com/";// 必须以 “/” 结束
     private static final String CODE_HEADER = "HTTP状态码：";
     private static final SparseArray<String> sCodeArray = new SparseArray<>();
     private static Retrofit sRetrofit;

@@ -80,4 +80,16 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"/>
 
+    <Button
+        android:id="@+id/btn_image_upload"
+        android:layout_width="343dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|left"
+        android:text="ImageUpload"
+        android:onClick="onClick"
+        android:textAllCaps="false"
+        android:layout_below="@+id/btn_life_cycle"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"/>
+
 </RelativeLayout>
