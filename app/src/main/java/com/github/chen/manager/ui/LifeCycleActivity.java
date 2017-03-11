@@ -5,10 +5,17 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import com.github.chen.manager.R;
 import com.github.chen.manager.base.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * 为了研究生命周期
@@ -16,6 +23,9 @@ import com.github.chen.manager.base.BaseActivity;
  */
 
 public class LifeCycleActivity extends BaseActivity {
+
+    @BindView(R.id.btn_show)
+    Button btnShow;
     
     public static void start(Context context) {
         Intent starter = new Intent(context, LifeCycleActivity.class);
@@ -28,19 +38,29 @@ public class LifeCycleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_life_cycle);
+        ButterKnife.bind(this);
+    }
+
+    @OnClick(R.id.btn_show) void showDialog(View view){
+        Log.d(TAG, "showDialog: ");
+//        new AlertDialog.Builder(this).setTitle("Alert").setMessage("This is a dialog")
+//                .setPositiveButton("ok",null).create().show();
+        DialogActivity.start(mActivity);
     }
 
     @Override
     public void onContentChanged() {
         super.onContentChanged();
+        //当Activity布局发送改变时，即setContentView()或者addContentView()执行完毕就会调用
+        //Activity中各种View的findViewById()方法都可以放在这里处理
         Log.d(TAG, "onContentChanged");
     }
 
     @Override
     protected void onPostCreate(@Nullable Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
+        //onPostCreate()方法是在onCreate()方法彻底执行完毕的回调，onPostResume类似
         Log.d(TAG, "onPostCreate");
-
     }
 
     @Override
@@ -94,12 +114,14 @@ public class LifeCycleActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+        outState.putInt("key",111);
         Log.d(TAG, "onSaveInstanceState");
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
+        //Activity被系统销毁了才会被调用
         Log.d(TAG, "onRestoreInstanceState");
     }
 }
