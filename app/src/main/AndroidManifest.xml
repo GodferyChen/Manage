@@ -88,6 +88,8 @@
         <activity android:name=".ui.DialogActivity"
             android:theme="@android:style/Theme.Dialog">
         </activity>
+        <service android:name=".service.MyService"/>
+        <service android:name=".service.MyIntentService"/>
     </application>
 
 </manifest>

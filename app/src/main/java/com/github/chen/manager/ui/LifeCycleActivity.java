@@ -5,13 +5,13 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
 import com.github.chen.manager.R;
 import com.github.chen.manager.base.BaseActivity;
+import com.github.chen.manager.service.MyIntentService;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -39,6 +39,9 @@ public class LifeCycleActivity extends BaseActivity {
         Log.d(TAG, "onCreate");
         setContentView(R.layout.activity_life_cycle);
         ButterKnife.bind(this);
+
+        MyIntentService.start(mActivity,"oper1");
+        MyIntentService.start(mActivity,"oper2");
     }
 
     @OnClick(R.id.btn_show) void showDialog(View view){
