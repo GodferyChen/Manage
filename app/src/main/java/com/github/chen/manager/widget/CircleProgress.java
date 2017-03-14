@@ -22,38 +22,40 @@ public class CircleProgress extends View {
 
     private static final String TAG = "CircleProgress";
 
-    private final int STROKE_WIDTH = 4;
     private final int UNIT_RADIUS = 80;
-    private final int default_finished_color = Color.WHITE;
-    private final int default_unfinished_color = Color.rgb(72, 106, 176);
-    private final int default_main_text_color = Color.rgb(66, 145, 241);
-    private final int default_sub_text_color = Color.rgb(66, 145, 241);
+    private final int default_finished_color = Color.rgb(15,169,197);
+    private final int default_unfinished_color = Color.rgb(221, 221, 221);
+    private final int default_main_text_color = Color.rgb(15,169,197);
+    private final int default_sub_text_color = Color.rgb(221, 221, 221);
     private final float default_main_text_size;
     private final float default_sub_text_size;
     private final float default_stroke_width;
-    private final String default_main_text;
-    private final String default_sub_text;
-    private final float default_arc_angle = 360 * 0.8f;
+    private final String default_main_text = "--";
+    private final String default_sub_text = "总步数";
+    private final float default_arc_angle = 360 * 0.25f;
+
     private Paint grayCirclePaint;
     private Paint progressPaint;
     private Paint mainTextPaint;
     private Paint subTextPaint;
     private float dp1;
+    private float sp1;
     private int width;
     private int radius;//屏幕所能形成的最大圆的半径
     private int innerRadius;//内圆的半径，也就是要所能看见的圆的半径
+    private RectF oval;
+    private final float sweepStartDegree = 90;//起点的度数
+    private float sweepDegree = 0;//滑动的度数
+
     private int finishedStrokeColor;
     private int unfinishedStrokeColor;
-    private RectF oval;
-    private float sweepStartDegree = 90;//起点的度数
-    private float sweepDegree = 0;//滑动的度数
-    private float strokeWidth;
-    private int progress;
-    private float max;
-    private float mainTextSize = 32f;
-    private float subTextSize = 20f;
     private int mainTextColor;
     private int subTextColor;
+    private int progress;
+    private int max;
+    private float strokeWidth;
+    private float mainTextSize;
+    private float subTextSize;
     private String mainText;
     private String subText;
 
@@ -70,41 +72,21 @@ public class CircleProgress extends View {
 
         dp1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources()
                 .getDisplayMetrics());
-        float sp1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 1, getContext()
+        sp1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 1, getContext()
                 .getResources().getDisplayMetrics());
 
         default_main_text_size = 32*sp1;
         default_sub_text_size = 24*sp1;
         default_stroke_width = 4*dp1;
-        default_main_text = "--";
-        default_sub_text = "总步数";
 
         innerRadius = (int) (dp1 * UNIT_RADIUS);
-
-        //灰色的圆圈
-        grayCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);//抗锯齿
-        grayCirclePaint.setStyle(Paint.Style.STROKE);
-        grayCirclePaint.setColor(0x0F000000);
-        grayCirclePaint.setStrokeWidth(dp1 * STROKE_WIDTH);
-
-        //进度条的圆圈
-        progressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        progressPaint.setStyle(Paint.Style.STROKE);
-        progressPaint.setStrokeWidth(dp1 * STROKE_WIDTH);
-        progressPaint.setColor(0xFF0fa9c5);
-        progressPaint.setStrokeCap(Paint.Cap.ROUND);//设置头尾圆润
-
-        mainTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mainTextPaint.setColor(0xFF0fa9c5);
-        mainTextPaint.setTextSize(sp1 * mainTextSize);
-
-        subTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        subTextPaint.setColor(0x0F000000);
-        subTextPaint.setTextSize(sp1 * subTextSize);
 
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable
                 .CircleProgress,defStyleAttr,0);
         initByAttributes(attributes);
+        attributes.recycle();
+
+        initPainters();
     }
 
     private void initByAttributes(TypedArray attributes) {
@@ -150,13 +132,14 @@ public class CircleProgress extends View {
         //画主要的字符
         float textHeight = mainTextPaint.descent() + mainTextPaint.ascent();
         float textBaseline = (width - textHeight) / dp1;
-        canvas.drawText("--", (width - mainTextPaint.measureText("--")) / dp1,
+        canvas.drawText(default_main_text, (width - mainTextPaint.measureText(default_main_text)) / dp1,
                 textBaseline,
                 mainTextPaint);
         //画次要的字符
         float subTextBaseLine = width / 2 + innerRadius - (mainTextPaint.descent() - mainTextPaint
                 .ascent()) / dp1;
-        canvas.drawText("总步数", (width - subTextPaint.measureText("总步数")) / dp1, subTextBaseLine,
+        canvas.drawText(default_sub_text, (width - subTextPaint.measureText(default_sub_text) /
+                        dp1), subTextBaseLine,
                 subTextPaint);
     }
 
@@ -167,6 +150,131 @@ public class CircleProgress extends View {
     }
 
     protected void initPainters() {
+        //灰色的圆圈
+        grayCirclePaint = new Paint(Paint.ANTI_ALIAS_FLAG);//抗锯齿
+        grayCirclePaint.setStyle(Paint.Style.STROKE);
+        grayCirclePaint.setColor(unfinishedStrokeColor);
+        grayCirclePaint.setStrokeWidth(dp1 * strokeWidth);
 
+        //进度条的圆圈
+        progressPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        progressPaint.setStyle(Paint.Style.STROKE);
+        progressPaint.setStrokeWidth(dp1 * strokeWidth);
+        progressPaint.setColor(finishedStrokeColor);
+        progressPaint.setStrokeCap(Paint.Cap.ROUND);//设置头尾圆润
+
+        //圆圈中央的字符
+        mainTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        mainTextPaint.setColor(mainTextColor);
+        mainTextPaint.setTextSize(sp1 * mainTextSize);
+
+        //圆圈底部的字符
+        subTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        subTextPaint.setColor(subTextColor);
+        subTextPaint.setTextSize(sp1 * subTextSize);
+    }
+
+    public int getFinishedStrokeColor() {
+        return finishedStrokeColor;
+    }
+
+    public void setFinishedStrokeColor(int finishedStrokeColor) {
+        this.finishedStrokeColor = finishedStrokeColor;
+        this.invalidate();
+    }
+
+    public int getUnfinishedStrokeColor() {
+        return unfinishedStrokeColor;
+    }
+
+    public void setUnfinishedStrokeColor(int unfinishedStrokeColor) {
+        this.unfinishedStrokeColor = unfinishedStrokeColor;
+        this.invalidate();
+    }
+
+    public void setMainTextColor(int mainTextColor) {
+        this.mainTextColor = mainTextColor;
+        this.invalidate();
+    }
+
+    public int getSubTextColor() {
+        return subTextColor;
+    }
+
+    public void setSubTextColor(int subTextColor) {
+        this.subTextColor = subTextColor;
+        this.invalidate();
+    }
+
+    public float getStrokeWidth() {
+        return strokeWidth;
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+        this.strokeWidth = strokeWidth;
+        this.invalidate();
+    }
+
+    public int getProgress() {
+        return progress;
+    }
+
+    public void setProgress(int progress) {
+        this.progress = progress;
+        if(this.progress > getMax()){
+            this.progress = (int) getMax();
+        }
+        this.invalidate();
+    }
+
+    public int getMainTextColor() {
+        return mainTextColor;
+    }
+
+    public int getMax() {
+        return max;
+    }
+
+    public void setMax(int max) {
+        if(max > 0){
+            this.max = max;
+            this.invalidate();
+        }
+    }
+
+    public float getMainTextSize() {
+        return mainTextSize;
+    }
+
+    public void setMainTextSize(float mainTextSize) {
+        this.mainTextSize = mainTextSize;
+        this.invalidate();
+    }
+
+    public float getSubTextSize() {
+        return subTextSize;
+    }
+
+    public void setSubTextSize(float subTextSize) {
+        this.subTextSize = subTextSize;
+        this.invalidate();
+    }
+
+    public String getMainText() {
+        return mainText;
+    }
+
+    public void setMainText(String mainText) {
+        this.mainText = mainText;
+        this.invalidate();
+    }
+
+    public String getSubText() {
+        return subText;
+    }
+
+    public void setSubText(String subText) {
+        this.subText = subText;
+        this.invalidate();
     }
 }
