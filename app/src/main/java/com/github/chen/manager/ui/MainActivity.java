@@ -48,7 +48,8 @@ public class MainActivity extends BaseActivity {
                 LoginActivity.start(mActivity);
                 break;
             case R.id.btn_select:
-                SelectViewActivity.start(mActivity);
+//                SelectViewActivity.start(mActivity);
+                CircleActivity.start(mActivity);
                 break;
             case R.id.btn_life_cycle:
                 LifeCycleActivity.start(mActivity);

@@ -85,11 +85,16 @@
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".ui.DialogActivity"
+        <activity
+            android:name=".ui.DialogActivity"
             android:theme="@android:style/Theme.Dialog">
         </activity>
+
         <service android:name=".service.MyService"/>
         <service android:name=".service.MyIntentService"/>
+
+        <activity android:name=".ui.CircleActivity">
+        </activity>
     </application>
 
 </manifest>

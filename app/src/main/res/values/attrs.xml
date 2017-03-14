@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CircleProgress">
+        <attr name="circle_progress" format="integer"/>
+        <attr name="circle_angle" format="float"/>
+        <attr name="circle_stroke_width" format="dimension"/>
+        <attr name="circle_max" format="integer"/>
+
+        <attr name="circle_unfinished_color" format="color"/>
+        <attr name="circle_finished_color" format="color"/>
+
+        <attr name="circle_main_text_size" format="dimension"/>
+        <attr name="circle_main_text_color" format="color"/>
+        <attr name="circle_main_text" format="string"/>
+
+        <attr name="circle_sub_text" format="string"/>
+        <attr name="circle_sub_text_color" format="color"/>
+        <attr name="circle_sub_text_size" format="dimension"/>
+    </declare-styleable>
+</resources>
