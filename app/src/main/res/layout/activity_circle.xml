@@ -22,11 +22,17 @@
     </android.support.design.widget.AppBarLayout>
 
    <com.github.chen.manager.widget.CircleProgress
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       app:circle_main_text="15000"
-       app:circle_progress="15000"
+       android:layout_width="150dp"
+       android:layout_height="150dp"
+       app:circle_main_text="6750"
+       app:circle_progress="6750"
+       android:layout_marginTop="10dp"
+       android:layout_marginLeft="10dp"
        app:circle_max="15000"
+       app:circle_sub_text_color="@color/textPrimary"
+       app:circle_main_text_size="36sp"
+       app:circle_sub_text_size="30sp"
+       app:layout_behavior="@string/appbar_scrolling_view_behavior"
        app:circle_stroke_width="1dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
