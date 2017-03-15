@@ -7,12 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.support.annotation.Nullable;
-import android.text.TextPaint;
+import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
 import com.github.chen.manager.R;
+
 
 /**
  * Created by chen on 2017/3/14.
@@ -23,10 +24,11 @@ public class CircleProgress extends View {
     private static final String TAG = "CircleProgress";
 
     private final int UNIT_RADIUS = 80;
-    private final int default_finished_color = Color.rgb(15,169,197);
+    private final int default_finished_color = Color.rgb(15, 169, 197);
     private final int default_unfinished_color = Color.rgb(221, 221, 221);
-    private final int default_main_text_color = Color.rgb(15,169,197);
+    private final int default_main_text_color = Color.rgb(15, 169, 197);
     private final int default_sub_text_color = Color.rgb(221, 221, 221);
+    private final int default_max = 100;
     private final float default_main_text_size;
     private final float default_sub_text_size;
     private final float default_stroke_width;
@@ -75,14 +77,14 @@ public class CircleProgress extends View {
         sp1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 1, getContext()
                 .getResources().getDisplayMetrics());
 
-        default_main_text_size = 32*sp1;
-        default_sub_text_size = 24*sp1;
-        default_stroke_width = 4*dp1;
+        default_main_text_size = 24 * dp1;
+        default_sub_text_size = 12 * dp1;
+        default_stroke_width = 4 * dp1;
 
         innerRadius = (int) (dp1 * UNIT_RADIUS);
 
         TypedArray attributes = context.getTheme().obtainStyledAttributes(attrs, R.styleable
-                .CircleProgress,defStyleAttr,0);
+                .CircleProgress, defStyleAttr, 0);
         initByAttributes(attributes);
         attributes.recycle();
 
@@ -90,20 +92,30 @@ public class CircleProgress extends View {
     }
 
     private void initByAttributes(TypedArray attributes) {
-        finishedStrokeColor = attributes.getColor(R.styleable.CircleProgress_circle_finished_color, default_finished_color);
-        unfinishedStrokeColor = attributes.getColor(R.styleable.CircleProgress_circle_unfinished_color, default_unfinished_color);
-        mainTextColor = attributes.getColor(R.styleable.CircleProgress_circle_main_text_color, default_main_text_color);
+        finishedStrokeColor = attributes.getColor(R.styleable
+                .CircleProgress_circle_finished_color, default_finished_color);
+        unfinishedStrokeColor = attributes.getColor(R.styleable
+                .CircleProgress_circle_unfinished_color, default_unfinished_color);
+        mainTextColor = attributes.getColor(R.styleable.CircleProgress_circle_main_text_color,
+                default_main_text_color);
         mainTextSize = attributes.getDimension(R.styleable.CircleProgress_circle_main_text_size,
                 default_main_text_size);
         subTextColor = attributes.getColor(R.styleable.CircleProgress_circle_sub_text_color,
                 default_sub_text_color);
         subTextSize = attributes.getDimension(R.styleable.CircleProgress_circle_sub_text_size,
                 default_sub_text_size);
-        sweepDegree = attributes.getFloat(R.styleable.CircleProgress_circle_angle, default_arc_angle);
-        strokeWidth = attributes.getFloat(R.styleable.CircleProgress_circle_stroke_width,
+        sweepDegree = attributes.getFloat(R.styleable.CircleProgress_circle_angle,
+                default_arc_angle);
+        strokeWidth = attributes.getDimension(R.styleable.CircleProgress_circle_stroke_width,
                 default_stroke_width);
-        mainText = attributes.getString(R.styleable.CircleProgress_circle_main_text);
-        subText = attributes.getString(R.styleable.CircleProgress_circle_sub_text);
+        setMax(attributes.getInteger(R.styleable.CircleProgress_circle_max,default_max));
+        setProgress(attributes.getInteger(R.styleable.CircleProgress_circle_progress,0));
+        mainText = TextUtils.isEmpty(attributes.getString(R.styleable
+                .CircleProgress_circle_main_text)) ? default_main_text : attributes.getString(R
+                .styleable.CircleProgress_circle_main_text);
+        subText = TextUtils.isEmpty(attributes.getString(R.styleable
+                .CircleProgress_circle_sub_text)) ? default_sub_text : attributes.getString(R
+                .styleable.CircleProgress_circle_sub_text);
     }
 
     @Override
@@ -128,19 +140,19 @@ public class CircleProgress extends View {
         canvas.drawCircle(radius, radius, innerRadius - grayCirclePaint.getStrokeWidth() / dp1,
                 grayCirclePaint);
         //画进度条的圆弧
+        sweepDegree = getProgress() / getMax() * 360;
         canvas.drawArc(oval, sweepStartDegree, sweepDegree, false, progressPaint);
         //画主要的字符
         float textHeight = mainTextPaint.descent() + mainTextPaint.ascent();
         float textBaseline = (width - textHeight) / dp1;
-        canvas.drawText(default_main_text, (width - mainTextPaint.measureText(default_main_text)) / dp1,
-                textBaseline,
-                mainTextPaint);
+        canvas.drawText(mainText, (width - mainTextPaint.measureText(mainText)) / dp1,
+                textBaseline, mainTextPaint);
         //画次要的字符
-        float subTextBaseLine = width / 2 + innerRadius - (mainTextPaint.descent() - mainTextPaint
+        float subTextBaseLine = width / 2 + innerRadius - (subTextPaint.descent() - subTextPaint
                 .ascent()) / dp1;
-        canvas.drawText(default_sub_text, (width - subTextPaint.measureText(default_sub_text) /
-                        dp1), subTextBaseLine,
-                subTextPaint);
+        canvas.drawText(getSubText(), (width - subTextPaint.measureText(getSubText())) /
+                dp1, subTextBaseLine, subTextPaint);
+        System.out.println("CircleProgress.onDraw " + subTextPaint.getTextSize());
     }
 
     @Override
@@ -172,6 +184,7 @@ public class CircleProgress extends View {
         subTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         subTextPaint.setColor(subTextColor);
         subTextPaint.setTextSize(sp1 * subTextSize);
+        System.out.println("CircleProgress.initPainters " + subTextPaint.getTextSize());
     }
 
     public int getFinishedStrokeColor() {
@@ -221,8 +234,8 @@ public class CircleProgress extends View {
 
     public void setProgress(int progress) {
         this.progress = progress;
-        if(this.progress > getMax()){
-            this.progress = (int) getMax();
+        if (this.progress > getMax()) {
+            this.progress = getMax();
         }
         this.invalidate();
     }
@@ -236,7 +249,7 @@ public class CircleProgress extends View {
     }
 
     public void setMax(int max) {
-        if(max > 0){
+        if (max > 0) {
             this.max = max;
             this.invalidate();
         }

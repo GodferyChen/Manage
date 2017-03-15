@@ -23,6 +23,10 @@
 
    <com.github.chen.manager.widget.CircleProgress
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+       android:layout_height="wrap_content"
+       app:circle_main_text="15000"
+       app:circle_progress="15000"
+       app:circle_max="15000"
+       app:circle_stroke_width="1dp"/>
 
 </android.support.design.widget.CoordinatorLayout>

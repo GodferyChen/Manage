@@ -17,4 +17,8 @@
         <attr name="circle_sub_text_color" format="color"/>
         <attr name="circle_sub_text_size" format="dimension"/>
     </declare-styleable>
+
+    <declare-styleable name="Themes">
+        <attr name="circleProgressStyle" format="reference"/>
+    </declare-styleable>
 </resources>
