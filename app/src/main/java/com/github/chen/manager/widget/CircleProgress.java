@@ -12,7 +12,6 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.View;
 
 import com.github.chen.manager.R;
@@ -52,9 +51,7 @@ public class CircleProgress extends View {
     private final float DEFAULT_SWEEP_DEGREE = 360 * 0.25f;
 
     private Paint circlePaint;
-    private Paint mainTextPaint;
-    private Paint subTextPaint;
-    private float dp1;
+    private Paint textPaint;
     private int width;
     private RectF rectF = new RectF();
     private final float sweepStartDegree = 90;//起点的度数
@@ -82,9 +79,6 @@ public class CircleProgress extends View {
 
     public CircleProgress(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-
-        dp1 = TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 1, getContext().getResources()
-                .getDisplayMetrics());
 
         DEFAULT_MAIN_TEXT_SIZE = sp2px(getResources(), 18);
         DEFAULT_SUB_TEXT_SIZE = sp2px(getResources(), 12);
@@ -130,8 +124,8 @@ public class CircleProgress extends View {
         setMeasuredDimension(widthMeasureSpec, heightMeasureSpec);
         width = MeasureSpec.getSize(widthMeasureSpec);
         //进度条所绘制的那个圆圈
-        rectF.set(strokeWidth / dp1, strokeWidth / dp1, width - strokeWidth / dp1, MeasureSpec
-                .getSize(heightMeasureSpec) - strokeWidth / dp1);
+        rectF.set(strokeWidth / 2f, strokeWidth / 2f, width - strokeWidth / 2f, MeasureSpec
+                .getSize(heightMeasureSpec) - strokeWidth / 2f);
     }
 
     @Override
@@ -146,15 +140,19 @@ public class CircleProgress extends View {
         sweepDegree = ((float) getProgress() / getMax()) * 360;
         canvas.drawArc(rectF, sweepStartDegree, sweepDegree, false, circlePaint);
         //画主要的字符
-        float textHeight = mainTextPaint.descent() + mainTextPaint.ascent();
-        float textBaseline = (width - textHeight) / dp1;
-        canvas.drawText(mainText, (width - mainTextPaint.measureText(mainText)) / dp1,
-                textBaseline, mainTextPaint);
+        textPaint.setColor(getMainTextColor());
+        textPaint.setTextSize(getMainTextSize());
+        float textHeight = textPaint.descent() + textPaint.ascent();
+        float textBaseline = (getHeight() - textHeight) / 2f;
+        canvas.drawText(mainText, (getWidth() - textPaint.measureText(mainText)) / 2f,
+                textBaseline, textPaint);
         //画次要的字符
-        float subTextBaseLine = width - (subTextPaint.descent() - subTextPaint
-                .ascent()) / dp1;
-        canvas.drawText(getSubText(), (width - subTextPaint.measureText(getSubText())) /
-                dp1, subTextBaseLine, subTextPaint);
+        textPaint.setColor(getSubTextColor());
+        textPaint.setTextSize(getSubTextSize());
+        float subTextBaseLine = width - (textPaint.descent() - textPaint
+                .ascent()) / 2f;
+        canvas.drawText(getSubText(), (width - textPaint.measureText(getSubText())) /
+                2f, subTextBaseLine, textPaint);
     }
 
     @Override
@@ -167,19 +165,15 @@ public class CircleProgress extends View {
         //圆圈
         circlePaint = new Paint(Paint.ANTI_ALIAS_FLAG);
         circlePaint.setStyle(Paint.Style.STROKE);
-        circlePaint.setStrokeWidth(dp1 * strokeWidth);
+        circlePaint.setStrokeWidth(strokeWidth);
         circlePaint.setColor(unfinishedStrokeColor);
         circlePaint.setStrokeCap(Paint.Cap.ROUND);//设置头尾圆润
 
-        //圆圈中央的字符
-        mainTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        mainTextPaint.setColor(mainTextColor);
-        mainTextPaint.setTextSize(mainTextSize);
+        //字符
+        textPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+        textPaint.setColor(mainTextColor);
+        textPaint.setTextSize(mainTextSize);
 
-        //圆圈底部的字符
-        subTextPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-        subTextPaint.setColor(subTextColor);
-        subTextPaint.setTextSize(subTextSize);
     }
 
     public int getFinishedStrokeColor() {

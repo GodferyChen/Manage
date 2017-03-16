@@ -31,8 +31,8 @@
        app:circle_max="15000"
        app:circle_sub_text_color="@color/textPrimary"
        app:circle_main_text_size="36sp"
-       app:circle_sub_text_size="30sp"
+       app:circle_sub_text_size="24sp"
        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-       app:circle_stroke_width="1dp"/>
+       app:circle_stroke_width="2dp"/>
 
 </android.support.design.widget.CoordinatorLayout>
