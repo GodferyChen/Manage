@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -24,7 +25,8 @@ import com.github.chen.manager.R;
  * Created by chen on 2016/9/24.
  */
 
-public class BaseActivity extends AppCompatActivity{
+public class BaseActivity extends AppCompatActivity implements View.OnTouchListener, View
+        .OnClickListener {
 
     protected final String TAG = this.getClass().getCanonicalName();
 
@@ -60,6 +62,18 @@ public class BaseActivity extends AppCompatActivity{
     public void onDetachedFromWindow() {
         super.onDetachedFromWindow();
         isAttachedToWindow = false;
+    }
+
+    protected void setPressAnim(View... views) {
+        for (View view : views) {
+            view.setOnTouchListener(this);
+        }
+    }
+
+    protected void setClickListener(View... views) {
+        for (View view : views) {
+            view.setOnClickListener(this);
+        }
     }
 
     @Override
@@ -149,5 +163,31 @@ public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onPause() {
         super.onPause();
+    }
+
+    @Override
+    public boolean onTouch(View view, MotionEvent motionEvent) {
+        switch (motionEvent.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+            case MotionEvent.ACTION_POINTER_DOWN:
+                if (Build.VERSION.SDK_INT >= 21) {
+                    view.setTranslationZ(getResources().getDisplayMetrics().density * 5f);
+                }
+                break;
+            case MotionEvent.ACTION_UP:
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_OUTSIDE:
+            case MotionEvent.ACTION_POINTER_UP:
+                if (Build.VERSION.SDK_INT >= 21) {
+                    view.setTranslationZ(0f);
+                }
+                break;
+        }
+        return false;
+    }
+
+    @Override
+    public void onClick(View v) {
+
     }
 }

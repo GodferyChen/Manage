@@ -46,9 +46,9 @@ public class CircleProgress extends View {
     private final float DEFAULT_MAIN_TEXT_SIZE;
     private final float DEFAULT_SUB_TEXT_SIZE;
     private final float DEFAULT_STROKE_WIDTH;
+    private final float DEFAULT_SWEEP_DEGREE = 360 * 0.25f;
     private final String DEFAULT_MAIN_TEXT = "--";
     private final String DEFAULT_SUB_TEXT = "总步数";
-    private final float DEFAULT_SWEEP_DEGREE = 360 * 0.25f;
 
     private Paint circlePaint;
     private Paint textPaint;
