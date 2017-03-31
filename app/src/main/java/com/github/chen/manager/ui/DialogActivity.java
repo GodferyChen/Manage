@@ -14,6 +14,7 @@ public class DialogActivity extends Activity {
         Intent starter = new Intent(context, DialogActivity.class);
 //        starter.putExtra();
         context.startActivity(starter);
+
     }
 
     @Override
