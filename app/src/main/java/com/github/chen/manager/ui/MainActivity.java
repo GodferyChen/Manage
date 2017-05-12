@@ -3,6 +3,7 @@ package com.github.chen.manager.ui;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.util.Log;
 import android.view.View;
 
 import com.github.chen.library.LogHelper;
@@ -37,6 +38,7 @@ public class MainActivity extends BaseActivity {
     }
 
     public void onClick(View v){
+        Log.d(TAG, "onClick() called with: v = [" + v + "]");
         switch (v.getId()){
             case R.id.btn_image_loader:
                 ImageLoaderActivity.start(mActivity);
