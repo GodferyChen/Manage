@@ -10,22 +10,26 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
-
-        jackOptions {
-            enabled true
-        }
+        multiDexEnabled true
+//        jackOptions {
+//            enabled true
+//        }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
-    }
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/rxjava.properties'
     }
 
 }
@@ -35,6 +39,10 @@ dependencies {
     compile project(':library')
     //这是个选图的库
     //绑定注解
+    compile files('libs/sdkserviceapi-2.0.2.jar')
+
+    // Because RxAndroid releases are few and far between, it is recommended you also
+// explicitly depend on RxJava's latest version for bug fixes and new features.
     compile 'com.android.support:appcompat-v7:25.2.0'
     compile 'com.android.support:design:25.2.0'
     compile 'com.squareup.picasso:picasso:2.5.2'
@@ -49,6 +57,8 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.1'
     compile 'cn.finalteam.rxgalleryfinal:library:0.0.3'
     compile 'com.jakewharton:butterknife:8.5.1'
+    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    compile 'io.reactivex.rxjava2:rxjava:2.1.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }
