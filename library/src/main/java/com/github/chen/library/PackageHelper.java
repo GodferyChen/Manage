@@ -50,8 +50,7 @@ public class PackageHelper {
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        String dataName = appInfo.metaData.getString("updateInfo");
-        return dataName;
+        return appInfo.metaData.getString("updateInfo");
     }
 
 }
