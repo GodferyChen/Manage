@@ -102,4 +102,14 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentStart="true"/>
 
+    <Button
+        android:id="@+id/btn_sim_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_image_upload"
+        android:text="SIM卡信息"
+        android:onClick="onClick"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"/>
+
 </RelativeLayout>

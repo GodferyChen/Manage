@@ -51,9 +51,9 @@ public class MainActivity extends BaseActivity {
         btnAIDL = (Button) findViewById(R.id.btn_aidl);
         appName = getPackageName();
 
-        Intent intent = new Intent("com.sample.aidl.IMyAidlInterface");
-        intent.setPackage("com.sample.myservice");
-        bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
+//        Intent intent = new Intent("com.sample.aidl.IMyAidlInterface");
+//        intent.setPackage("com.sample.myservice");
+//        bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     public void onClick(View v){
@@ -85,6 +85,9 @@ public class MainActivity extends BaseActivity {
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+                break;
+            case R.id.btn_sim_info:
+                SimInfoActivity.start(mActivity);
                 break;
             default:
                 break;

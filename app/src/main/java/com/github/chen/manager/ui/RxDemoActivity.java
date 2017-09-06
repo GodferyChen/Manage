@@ -5,18 +5,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.github.chen.manager.R;
-import com.github.chen.manager.retrofit.RetrofitHelper;
-import com.github.chen.manager.retrofit.entry.LoginRequest;
-import com.github.chen.manager.retrofit.service.LoginService;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
 
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
