@@ -51,9 +51,6 @@ public class MainActivity extends BaseActivity {
         btnAIDL = (Button) findViewById(R.id.btn_aidl);
         appName = getPackageName();
 
-//        Intent intent = new Intent("com.sample.aidl.IMyAidlInterface");
-//        intent.setPackage("com.sample.myservice");
-//        bindService(intent,serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
     public void onClick(View v){
@@ -93,18 +90,5 @@ public class MainActivity extends BaseActivity {
                 break;
         }
     }
-
-    private ServiceConnection serviceConnection = new ServiceConnection() {
-        @Override
-        public void onServiceConnected(ComponentName name, IBinder service) {
-            myAidlInterface = IMyAidlInterface.Stub.asInterface(service);//获取服务对象
-            btnAIDL.setEnabled(true);
-        }
-
-        @Override
-        public void onServiceDisconnected(ComponentName name) {
-
-        }
-    };
 
 }
