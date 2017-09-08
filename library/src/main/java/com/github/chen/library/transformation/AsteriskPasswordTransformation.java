@@ -1,4 +1,4 @@
-package com.github.chen.library;
+package com.github.chen.library.transformation;
 
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
