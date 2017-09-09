@@ -1,4 +1,4 @@
-package com.github.chen.manager;
+package com.github.chen.library.transformation;
 
 import android.content.Context;
 import android.graphics.Bitmap;

@@ -94,7 +94,7 @@ public class Packet8583 {
 
 	};
 
-	Packet8583(String packet) {
+	public Packet8583(String packet) {
 		TPDU = packet.substring(0, LENGTH_TPDU);
 		packetHead = packet.substring(LENGTH_TPDU, LENGTH_TPDU + LENGTH_PACKET_HEAD);
 		type = packet.substring(LENGTH_TPDU + LENGTH_PACKET_HEAD, LENGTH_TPDU + LENGTH_PACKET_HEAD + 4);
