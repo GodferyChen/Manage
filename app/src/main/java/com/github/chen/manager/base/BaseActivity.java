@@ -34,7 +34,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnTouchListe
     protected ActionBar mActionBar;
     protected Activity mActivity;
     protected AppContext mAppContext;
-    protected boolean isAttachedToWindow, isOperate, isDestroy;
+    protected boolean isAttachedToWindow, isDestroy;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

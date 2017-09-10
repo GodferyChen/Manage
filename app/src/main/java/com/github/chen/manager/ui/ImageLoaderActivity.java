@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.github.chen.library.DimenHelper;
-import com.github.chen.manager.CircleImageTransformation;
+import com.github.chen.library.transformation.CircleImageTransformation;
+import com.github.chen.library.transformation.RoundTransformation;
 import com.github.chen.manager.R;
-import com.github.chen.manager.RoundTransformation;
 import com.github.chen.manager.base.BaseActivity;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -72,23 +72,27 @@ public class ImageLoaderActivity extends BaseActivity {
 //        imageLoader.loadImage(url, new ImageLoadingListener() {
 //            @Override
 //            public void onLoadingStarted(String s, View view) {
-//                Log.d(TAG, "onLoadingStarted() called with: s = [" + s + "], view = [" + view + "]");
+//                Log.d(TAG, "onLoadingStarted() called with: s = [" + s + "], view = [" + view +
+// "]");
 //            }
 //
 //            @Override
 //            public void onLoadingFailed(String s, View view, FailReason failReason) {
-//                Log.d(TAG, "onLoadingFailed() called with: s = [" + s + "], view = [" + view + "], failReason = [" + failReason + "]");
+//                Log.d(TAG, "onLoadingFailed() called with: s = [" + s + "], view = [" + view +
+// "], failReason = [" + failReason + "]");
 //            }
 //
 //            @Override
 //            public void onLoadingComplete(String s, View view, Bitmap bitmap) {
-//                Log.d(TAG, "onLoadingComplete() called with: s = [" + s + "], view = [" + view + "], bitmap = [" + bitmap + "]");
+//                Log.d(TAG, "onLoadingComplete() called with: s = [" + s + "], view = [" + view
+// + "], bitmap = [" + bitmap + "]");
 //                ivLoader.setImageBitmap(bitmap);
 //            }
 //
 //            @Override
 //            public void onLoadingCancelled(String s, View view) {
-//                Log.d(TAG, "onLoadingCancelled() called with: s = [" + s + "], view = [" + view + "]");
+//                Log.d(TAG, "onLoadingCancelled() called with: s = [" + s + "], view = [" + view
+// + "]");
 //            }
 //        });
         DisplayImageOptions options = new DisplayImageOptions.Builder()
@@ -114,7 +118,7 @@ public class ImageLoaderActivity extends BaseActivity {
     public void onTrimMemory(int level) {
         super.onTrimMemory(level);
         //一旦触发说明用户离开程序，此时可以进行资源释放操作
-        if(level == TRIM_MEMORY_UI_HIDDEN){
+        if (level == TRIM_MEMORY_UI_HIDDEN) {
 
         }
     }

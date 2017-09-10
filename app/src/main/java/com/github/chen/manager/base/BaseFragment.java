@@ -27,7 +27,7 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
 
     protected Activity mActivity;
     protected View mRootView;
-    protected boolean isAttachedToWindow, isDestroy, isOperate;
+    protected boolean isAttachedToWindow, isDestroy;
     protected AppContext mAppContext;
     protected Toolbar mToolbar;
     protected ActionBar mActionBar;
