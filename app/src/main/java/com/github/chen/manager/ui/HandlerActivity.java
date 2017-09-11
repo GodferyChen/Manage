@@ -12,7 +12,7 @@ import com.github.chen.manager.base.BaseActivity;
 import java.lang.ref.WeakReference;
 
 /**
- *  Handler correct use method to avoid memory leak
+ * Handler correct use method to avoid memory leak
  * Created by chen on 2016/9/16.
  */
 
@@ -42,7 +42,7 @@ public class HandlerActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_handler);
         // Post a message and delay its execution for 10 minutes.
-        mHandler.postDelayed(mRunnable,1000*60*10);
+        mHandler.postDelayed(mRunnable, 1000 * 60 * 10);
 
         // Go back to the previous Activity.
         finish();
@@ -52,11 +52,11 @@ public class HandlerActivity extends BaseActivity {
      * Instances of static inner classes do not hold an implicit
      * reference to their outer class.
      */
-    private static class MyHandler extends Handler{
+    private static class MyHandler extends Handler {
 
         private final WeakReference<HandlerActivity> mActivity;
 
-        public MyHandler(HandlerActivity activity){
+        public MyHandler(HandlerActivity activity) {
             mActivity = new WeakReference<HandlerActivity>(activity);
         }
 
@@ -65,7 +65,7 @@ public class HandlerActivity extends BaseActivity {
             super.handleMessage(msg);
 
             HandlerActivity activity = mActivity.get();
-            if(activity != null){
+            if (activity != null) {
                 //...
             }
         }

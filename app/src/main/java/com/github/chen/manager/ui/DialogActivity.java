@@ -1,15 +1,14 @@
 package com.github.chen.manager.ui;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.github.chen.manager.R;
+import com.github.chen.manager.base.BaseActivity;
 
-public class DialogActivity extends Activity {
-    
+public class DialogActivity extends BaseActivity {
+
     public static void start(Context context) {
         Intent starter = new Intent(context, DialogActivity.class);
 //        starter.putExtra();

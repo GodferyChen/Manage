@@ -26,7 +26,7 @@ public class LifeCycleActivity extends BaseActivity {
 
     @BindView(R.id.btn_show)
     Button btnShow;
-    
+
     public static void start(Context context) {
         Intent starter = new Intent(context, LifeCycleActivity.class);
 //        starter.putExtra();
@@ -40,11 +40,12 @@ public class LifeCycleActivity extends BaseActivity {
         setContentView(R.layout.activity_life_cycle);
         ButterKnife.bind(this);
 
-        MyIntentService.start(mActivity,"oper1");
-        MyIntentService.start(mActivity,"oper2");
+        MyIntentService.start(mActivity, "oper1");
+        MyIntentService.start(mActivity, "oper2");
     }
 
-    @OnClick(R.id.btn_show) void showDialog(View view){
+    @OnClick(R.id.btn_show)
+    void showDialog(View view) {
         Log.d(TAG, "showDialog: ");
 //        new AlertDialog.Builder(this).setTitle("Alert").setMessage("This is a dialog")
 //                .setPositiveButton("ok",null).create().show();
@@ -117,7 +118,7 @@ public class LifeCycleActivity extends BaseActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt("key",111);
+        outState.putInt("key", 111);
         Log.d(TAG, "onSaveInstanceState");
     }
 

@@ -1,10 +1,10 @@
 package com.github.chen.manager.ui;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.github.chen.manager.R;
+import com.github.chen.manager.base.BaseActivity;
 
 import org.reactivestreams.Subscriber;
 import org.reactivestreams.Subscription;
@@ -33,7 +33,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public class RxDemoActivity extends AppCompatActivity {
+public class RxDemoActivity extends BaseActivity {
 
     private static final String TAG = RxDemoActivity.class.getSimpleName();
 
@@ -47,17 +47,17 @@ public class RxDemoActivity extends AppCompatActivity {
         printFile();
     }
 
-    private void printFile(){
+    private void printFile() {
         Flowable.create(new FlowableOnSubscribe<String>() {
             @Override
             public void subscribe(@NonNull FlowableEmitter<String> e) throws Exception {
                 InputStream open = getAssets().open("text.txt");
-                InputStreamReader inputStreamReader = new InputStreamReader(open,"GBK");
+                InputStreamReader inputStreamReader = new InputStreamReader(open, "GBK");
                 BufferedReader br = new BufferedReader(inputStreamReader);
 
                 String str;
-                while ((str = br.readLine()) != null && !e.isCancelled()){
-                    while (e.requested() == 0){
+                while ((str = br.readLine()) != null && !e.isCancelled()) {
+                    while (e.requested() == 0) {
                         break;
                     }
                     e.onNext(str);
@@ -91,7 +91,7 @@ public class RxDemoActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable t) {
-                        Log.e(TAG, "onError: ",t);
+                        Log.e(TAG, "onError: ", t);
                     }
 
                     @Override
@@ -187,9 +187,9 @@ public class RxDemoActivity extends AppCompatActivity {
             public ObservableSource<String> apply(@NonNull Integer integer) throws Exception {
                 final List<String> list = new ArrayList<String>();
                 for (int i = 0; i < 3; i++) {
-                    list.add("I am value "+integer);
+                    list.add("I am value " + integer);
                 }
-                return Observable.fromIterable(list).delay(10,TimeUnit.MILLISECONDS);
+                return Observable.fromIterable(list).delay(10, TimeUnit.MILLISECONDS);
             }
         }).subscribe(new Consumer<String>() {
             @Override

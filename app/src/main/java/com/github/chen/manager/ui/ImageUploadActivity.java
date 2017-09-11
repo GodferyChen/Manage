@@ -5,8 +5,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
@@ -62,11 +60,13 @@ public class ImageUploadActivity extends BaseActivity {
                         .imageLoader(ImageLoaderType.GLIDE)
                         .subscribe(new RxBusResultSubscriber<ImageMultipleResultEvent>() {
                             @Override
-                            protected void onEvent(ImageMultipleResultEvent resultEvent) throws Exception {
+                            protected void onEvent(ImageMultipleResultEvent resultEvent) throws
+                                    Exception {
                                 for (int i = 0; i < resultEvent.getResult().size(); i++) {
                                     MediaBean bean = resultEvent.getResult().get(i);
                                     File file = new File(bean.getOriginalPath());
-                                    System.out.println("ImageUploadActivity.onEvent " + bean.getOriginalPath());
+                                    System.out.println("ImageUploadActivity.onEvent " + bean
+                                            .getOriginalPath());
                                     imageView.setImageURI(Uri.fromFile(file));
                                     upload(file);
                                 }
@@ -78,18 +78,18 @@ public class ImageUploadActivity extends BaseActivity {
 
     private void upload(File file) {
         ImageService service = RetrofitHelper.service(ImageService.class);
-        Map<String,Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("fileType", "user");
         map.put("id", "123");
-        Call<JSONObject> call = service.uploadImage(file,map);
+        Call<JSONObject> call = service.uploadImage(file, map);
         call.enqueue(new Callback<JSONObject>() {
             @Override
             public void onResponse(Call<JSONObject> call, Response<JSONObject> response) {
                 JSONObject object = response.body();
-                if(object != null){
+                if (object != null) {
                     if (object.optInt("error_code", 0) == 0) {
 
-                    }else {
+                    } else {
                     }
                     LogHelper.tS(mAppContext, object.toString());
                 }
