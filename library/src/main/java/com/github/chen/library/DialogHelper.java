@@ -122,6 +122,7 @@ public class DialogHelper {
          * @param dialog
          */
         public void onNegativeClick(DialogInterface dialog, int id);
+
         /**
          * 确定
          *

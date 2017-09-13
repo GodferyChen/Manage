@@ -351,8 +351,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String md5;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(MD5DirLower32(f, listChild));
 			} else if (f.isFile()) {
@@ -383,8 +382,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String md5;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(MD5DirUpper16(f, listChild));
 			} else if (f.isFile()) {
@@ -415,8 +413,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String md5;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(MD5DirUpper32(f, listChild));
 			} else if (f.isFile()) {
@@ -447,8 +444,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String sha1;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(SHA1DirLower16(f, listChild));
 			} else if (f.isFile()) {
@@ -479,8 +475,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String sha1;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(SHA1DirLower32(f, listChild));
 			} else if (f.isFile()) {
@@ -511,8 +506,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String sha1;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(SHA1DirUpper16(f, listChild));
 			} else if (f.isFile()) {
@@ -543,8 +537,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String sha1;
 		File files[] = dir.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(SHA1DirUpper32(f, listChild));
 			} else if (f.isFile()) {
@@ -575,8 +568,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String crc32;
 		File files[] = file.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(CRC32DirLower(f, listChild));
 			} else if (f.isFile()) {
@@ -607,8 +599,7 @@ public class EncryptHelper {
 		Map<String, String> map = new HashMap<String, String>();
 		String crc32;
 		File files[] = file.listFiles();
-		for (int i = 0; i < files.length; i++) {
-			File f = files[i];
+		for (File f : files) {
 			if (f.isDirectory() && listChild) {
 				map.putAll(CRC32DirUpper(f, listChild));
 			} else if (f.isFile()) {

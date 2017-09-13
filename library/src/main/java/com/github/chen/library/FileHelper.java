@@ -14,6 +14,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * 文件工具类
@@ -24,7 +25,7 @@ public class FileHelper {
     private final static long MB = 1048576L;
     private final static long GB = 1073741824L;
     private final static long TB = 1099511627776L;
-    private final static int BUFFER = 1024*4;
+    private final static int BUFFER = 1024 * 4;
     private static HashMap<File, Boolean> mFileCopyMap;
     private static HashMap<File, Boolean> mFileDeleteMap;
 
@@ -47,7 +48,7 @@ public class FileHelper {
         FileFilter fileFilter = new FileFilter() {
             @Override
             public boolean accept(File pathname) {
-                if(calculateHidden) {
+                if (calculateHidden) {
                     return true;
                 } else {
                     return !pathname.isHidden();
@@ -57,8 +58,8 @@ public class FileHelper {
         File[] fileNums = fileNum.listFiles(fileFilter);
         int dNum = 0;
         int fNum = 0;
-        for(File file2 : fileNums) {
-            if(file2.isDirectory()) {
+        for (File file2 : fileNums) {
+            if (file2.isDirectory()) {
                 dNum++;
             } else {
                 fNum++;
@@ -66,7 +67,7 @@ public class FileHelper {
         }
         // 格式化文件夹中子文件夹和文件数量
         String strNum = "";
-        strNum = String.format("目录：%d，文件：%d", dNum, fNum);
+        strNum = String.format(Locale.getDefault(), "目录：%d，文件：%d", dNum, fNum);
         return strNum;
     }
 
@@ -76,13 +77,13 @@ public class FileHelper {
     public static long getFileLen(File file) {
 
         long len = 0;
-        if(file.exists()) {
-            if(file.isFile()) {
+        if (file.exists()) {
+            if (file.isFile()) {
                 len = file.length();
             } else {
                 File[] files = file.listFiles();
-                for(File subFile : files) {
-                    if(subFile.isFile()) {
+                for (File subFile : files) {
+                    if (subFile.isFile()) {
                         len += subFile.length();
                     } else {
                         len += getFileLen(subFile);
@@ -99,7 +100,7 @@ public class FileHelper {
     public static long getFilesLen(File... files) {
 
         long len = 0;
-        for(File file : files) {
+        for (File file : files) {
             len += getFileLen(file);
         }
         return len;
@@ -111,16 +112,16 @@ public class FileHelper {
     public static String getLenStr(long len) {
 
         String lenStr = "";
-        if(len>=0 && len<KB) {
-            lenStr = String.format("%.02f B", len*1.0);
-        } else if(len>=KB && len<MB) {
-            lenStr = String.format("%.02f KB", (len*1.0)/KB);
-        } else if(len>=MB && len<GB) {
-            lenStr = String.format("%.02f MB", (len*1.0)/MB);
-        } else if(len>=GB && len<TB) {
-            lenStr = String.format("%.02f GB", (len*1.0)/GB);
+        if (len >= 0 && len < KB) {
+            lenStr = String.format(Locale.getDefault(), "%.02f B", len * 1.0);
+        } else if (len >= KB && len < MB) {
+            lenStr = String.format(Locale.getDefault(), "%.02f KB", (len * 1.0) / KB);
+        } else if (len >= MB && len < GB) {
+            lenStr = String.format(Locale.getDefault(), "%.02f MB", (len * 1.0) / MB);
+        } else if (len >= GB && len < TB) {
+            lenStr = String.format(Locale.getDefault(), "%.02f GB", (len * 1.0) / GB);
         } else {
-            lenStr = String.format("%.02f TB", (len*1.0)/TB);
+            lenStr = String.format(Locale.getDefault(), "%.02f TB", (len * 1.0) / TB);
         }
         return lenStr;
     }
@@ -131,7 +132,7 @@ public class FileHelper {
     public static boolean newFile(File file) {
 
         try {
-            if(!file.exists()) {
+            if (!file.exists()) {
                 return newFolder(new File(file.getParent())) && file.createNewFile();
             }
         } catch (IOException e) {
@@ -160,31 +161,34 @@ public class FileHelper {
      */
     public static HashMap<File, Boolean> copyFiles(File destDir, File... srcFiles) {
 
-        if(mFileCopyMap==null) {
+        if (mFileCopyMap == null) {
             mFileCopyMap = new HashMap<File, Boolean>();
         }
-        for(File file : srcFiles) {
-            if(file.isDirectory()) {
-                if(file.getPath().equals(destDir.getPath()) || destDir.getParent().startsWith(file.getPath())) {
+        for (File file : srcFiles) {
+            if (file.isDirectory()) {
+                if (file.getPath().equals(destDir.getPath()) || destDir.getParent().startsWith
+                        (file.getPath())) {
                     mFileCopyMap.put(file, false);
                     return mFileCopyMap;
                 }
             }
         }
-        if(!destDir.exists()) {
+        if (!destDir.exists()) {
             destDir.mkdirs();
         }
-        for(File srcFile : srcFiles) {
-            if(srcFile.exists()) {
-                if(srcFile.isFile()) {
-                    mFileCopyMap.put(srcFile, copyFile(srcFile, new File(destDir, srcFile.getName())));
-                } else if(srcFile.isDirectory()) {
+        for (File srcFile : srcFiles) {
+            if (srcFile.exists()) {
+                if (srcFile.isFile()) {
+                    mFileCopyMap.put(srcFile, copyFile(srcFile, new File(destDir, srcFile.getName
+                            ())));
+                } else if (srcFile.isDirectory()) {
                     File subDestDir = new File(destDir, srcFile.getName());
-                    if(!subDestDir.exists()) {
+                    if (!subDestDir.exists()) {
                         subDestDir.mkdir();
-                        if(srcFile.isHidden()) {
+                        if (srcFile.isHidden()) {
                             try {
-                                Runtime.getRuntime().exec("attrib "+"\""+subDestDir.getAbsolutePath()+"\""+" +H");
+                                Runtime.getRuntime().exec("attrib " + "\"" + subDestDir
+                                        .getAbsolutePath() + "\"" + " +H");
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -205,25 +209,26 @@ public class FileHelper {
      */
     private static boolean copyFile(File src, File dest) {
 
-        if(src.exists()) {
-            if(!dest.exists()) {
+        if (src.exists()) {
+            if (!dest.exists()) {
                 try {
                     newFile(dest);
                     String pattern = "";
-                    if(!src.canWrite()) {
+                    if (!src.canWrite()) {
                         pattern = " +R";
                     }
-                    if(src.isHidden()) {
+                    if (src.isHidden()) {
                         pattern += " +H";
                     }
-                    if(pattern.length()>0) {
-                        Runtime.getRuntime().exec("attrib "+"\""+dest.getAbsolutePath()+"\""+pattern);
+                    if (pattern.length() > 0) {
+                        Runtime.getRuntime().exec("attrib " + "\"" + dest.getAbsolutePath() +
+                                "\"" + pattern);
                     }
                     BufferedInputStream in = new BufferedInputStream(new FileInputStream(src));
                     BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(dest));
                     byte[] buf = new byte[BUFFER];
                     int len = -1;
-                    while(-1!=(len = in.read(buf))) {
+                    while (-1 != (len = in.read(buf))) {
                         out.write(buf, 0, len);
                     }
                     out.flush();
@@ -245,18 +250,18 @@ public class FileHelper {
      */
     public static HashMap<File, Boolean> deleteFiles(File... files) {
 
-        if(mFileDeleteMap==null) {
+        if (mFileDeleteMap == null) {
             mFileDeleteMap = new HashMap<File, Boolean>();
         }
-        for(File file : files) {
-            if(file.exists()) {
-                if(file.isFile()) {
+        for (File file : files) {
+            if (file.exists()) {
+                if (file.isFile()) {
                     mFileDeleteMap.put(file, file.delete());
-                } else if(file.isDirectory()) {
+                } else if (file.isDirectory()) {
                     File[] subFiles = file.listFiles();
                     deleteFiles(subFiles);
                 }
-                if(file.isDirectory()) {
+                if (file.isDirectory()) {
                     mFileDeleteMap.put(file, file.delete());
                 }
             } else {
@@ -272,7 +277,7 @@ public class FileHelper {
     public static boolean writeTextFile(File file, String content) {
 
         try {
-            if(!(content!=null && content.length()>0)) {
+            if (!(content != null && content.length() > 0)) {
                 return false;
             }
             newFolder(new File(file.getParent()));
@@ -281,7 +286,7 @@ public class FileHelper {
             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
             byte[] buf = new byte[BUFFER];
             int len = -1;
-            while((len = in.read(buf))!=-1) {
+            while ((len = in.read(buf)) != -1) {
                 out.write(buf, 0, len);
             }
             out.flush();
@@ -352,7 +357,7 @@ public class FileHelper {
             out = new ByteArrayOutputStream();
             byte[] buf = new byte[BUFFER];
             int len = -1;
-            while((len = in.read(buf))!=-1) {
+            while ((len = in.read(buf)) != -1) {
                 out.write(buf, 0, len);
             }
             out.flush();
@@ -363,11 +368,11 @@ public class FileHelper {
             e.printStackTrace();
         } finally {
             try {
-                if(out!=null) {
+                if (out != null) {
                     out.flush();
                     out.close();
                 }
-                if(in!=null) in.close();
+                if (in != null) in.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -387,7 +392,7 @@ public class FileHelper {
             BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(file));
             byte[] buffer = new byte[BUFFER];
             int len = 0;
-            while((len = in.read(buffer))!=-1) {
+            while ((len = in.read(buffer)) != -1) {
                 out.write(buffer, 0, len);
             }
             out.flush();
@@ -402,6 +407,7 @@ public class FileHelper {
 
     /**
      * 删除指定文件夹下所有文件
+     *
      * @param path 文件夹完整绝对路径
      * @return
      */
@@ -436,14 +442,13 @@ public class FileHelper {
 
     /**
      * 删除文件夹
+     *
      * @param folderPath 文件夹完整绝对路径
      */
     private static void delFolder(String folderPath) {
         try {
             delAllFile(folderPath); //删除完里面所有内容
-            String filePath = folderPath;
-            filePath = filePath.toString();
-            java.io.File myFilePath = new java.io.File(filePath);
+            java.io.File myFilePath = new java.io.File(folderPath);
             myFilePath.delete(); //删除空文件夹
         } catch (Exception e) {
             e.printStackTrace();

@@ -14,8 +14,8 @@ public class ByteHelper {
     public static String byteToString(byte[] data) {
         if (data != null && data.length > 0) {
             String strText = String.format(Locale.getDefault(),"%d bytes [", data.length);
-            for (int i = 0; i < data.length; i++) {
-                strText += String.format("%x ", data[i]);
+            for (byte aData : data) {
+                strText += String.format("%x ", aData);
             }
             strText += "]\n";
             return strText;
