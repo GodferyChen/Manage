@@ -154,7 +154,7 @@ public class WifiHelper {
         mWifiManager.disconnect();
     }
 
-    public WifiConfiguration CreateWifiInfo(String SSID, String Password, int Type) {
+    public WifiConfiguration createWifiInfo(String SSID, String Password, int Type) {
         Log.i(TAG, "SSID:" + SSID + ",password:" + Password);
         WifiConfiguration config = new WifiConfiguration();
         config.allowedAuthAlgorithms.clear();
@@ -164,12 +164,12 @@ public class WifiHelper {
         config.allowedProtocols.clear();
         config.SSID = "\"" + SSID + "\"";
 
-        WifiConfiguration tempConfig = this.IsExsits(SSID);
+        WifiConfiguration tempConfig = this.isExsits(SSID);
 
         if (tempConfig != null) {
             mWifiManager.removeNetwork(tempConfig.networkId);
         } else {
-            Log.i(TAG, "IsExsits is null.");
+            Log.i(TAG, "isExsits is null.");
         }
 
         if (Type == 1) // WIFICIPHER_NOPASS
@@ -211,7 +211,7 @@ public class WifiHelper {
         return config;
     }
 
-    private WifiConfiguration IsExsits(String SSID) { // 查看以前是否已经配置过该SSID
+    private WifiConfiguration isExsits(String SSID) { // 查看以前是否已经配置过该SSID
         List<WifiConfiguration> existingConfigs = mWifiManager.getConfiguredNetworks();
         for (WifiConfiguration existingConfig : existingConfigs) {
             if (existingConfig.SSID.equals("\"" + SSID + "\"")) {

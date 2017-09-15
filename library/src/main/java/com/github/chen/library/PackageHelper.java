@@ -79,7 +79,7 @@ public class PackageHelper {
         return packageName;
     }
 
-    public static PublicKey getAPPPublicKey(Context context) {
+    public static PublicKey getAppPublicKey(Context context) {
         PublicKey key = null;
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(getAppPackageName(context),
@@ -117,7 +117,7 @@ public class PackageHelper {
         ctx.startActivity(intent);
     }
 
-    public static boolean isMyAPP(String appFilePath, Context context) {
+    public static boolean isMyApp(String appFilePath, Context context) {
         PackageManager pm = context.getPackageManager();
         PackageInfo info = pm.getPackageArchiveInfo(appFilePath, PackageManager.GET_ACTIVITIES);
         if (info != null) {
