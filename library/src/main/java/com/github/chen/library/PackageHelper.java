@@ -19,37 +19,30 @@ public class PackageHelper {
 
     /**
      * 获取App安装包信息
+     *
      * @param context
      * @return
      */
-    public static PackageInfo getPackageInfo(Context context){
+    public static PackageInfo getPackageInfo(Context context) {
         Context mContent = context.getApplicationContext();
         PackageInfo info = null;
         try {
-            info = mContent.getPackageManager().getPackageInfo(mContent.getPackageName(),0);
+            info = mContent.getPackageManager().getPackageInfo(mContent.getPackageName(), 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
-        if(info == null){
+        if (info == null) {
             info = new PackageInfo();
         }
         return info;
     }
 
     public static int getVersionCode(Context context) {
-        PackageInfo info = getPackageInfo(context.getApplicationContext());
-        return info.versionCode;
+        return getPackageInfo(context.getApplicationContext()).versionCode;
     }
 
     public static String getVersionName(Context context) {
-        try {
-            PackageInfo info = context.getPackageManager().getPackageInfo
-                    (context.getPackageName(), 0);
-            return info.versionName;
-        } catch (PackageManager.NameNotFoundException e) {
-            e.printStackTrace();
-        }
-        return "";
+        return getPackageInfo(context.getApplicationContext()).versionName;
     }
 
     public static CharSequence getUpdateInfo(Context context) {
@@ -66,9 +59,7 @@ public class PackageHelper {
     public static String getAppPackageName(Context context) {
         String packageName = "";
         try {
-            // ---get the package info---
-            PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            PackageInfo pi = getPackageInfo(context.getApplicationContext());
             packageName = pi.packageName;
             if (packageName == null || packageName.length() <= 0) {
                 return "";
@@ -82,8 +73,9 @@ public class PackageHelper {
     public static PublicKey getAppPublicKey(Context context) {
         PublicKey key = null;
         try {
-            PackageInfo packageInfo = context.getPackageManager().getPackageInfo(getAppPackageName(context),
-                    PackageManager.GET_SIGNATURES);
+            PackageInfo packageInfo = context.getPackageManager().getPackageInfo
+                    (getAppPackageName(context),
+                            PackageManager.GET_SIGNATURES);
             Signature[] signs = packageInfo.signatures;
             Signature sign = signs[0];
             CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
@@ -113,7 +105,8 @@ public class PackageHelper {
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);// 设置意图的动作
         intent.addCategory("android.intent.category.DEFAULT");// 为意图添加额外的数据
-        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");// 设置意图的数据与类型
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");//
+        // 设置意图的数据与类型
         ctx.startActivity(intent);
     }
 
@@ -137,13 +130,10 @@ public class PackageHelper {
     public static boolean isRoot() {
         boolean root = false;
         try {
-            if ((!new File("/system/bin/su").exists())
-                    && (!new File("/system/xbin/su").exists())) {
-                root = false;
-            } else {
-                root = true;
-            }
+            root = !((!new File("/system/bin/su").exists())
+                    && (!new File("/system/xbin/su").exists()));
         } catch (Exception e) {
+            e.printStackTrace();
         }
         return root;
     }

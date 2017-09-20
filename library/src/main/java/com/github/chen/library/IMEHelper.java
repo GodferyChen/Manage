@@ -81,21 +81,21 @@ public class IMEHelper {
 			}
 
 			SpannableStringBuilder modification = null;
-			int modoff = 0;
+			int num = 0;
 
 			for (int i = start; i < end; i++) {
 				char c = source.charAt(i);
 				if (isAllowed(c)) {
-					modoff++;
+					num++;
 				} else {
 					if (mAppendInvalid) {
-						modoff++;
+						num++;
 					} else {
 						if (modification == null) {
 							modification = new SpannableStringBuilder(source, start, end);
-							modoff = i - start;
+							num = i - start;
 						}
-						modification.delete(modoff, modoff + 1);
+						modification.delete(num, num + 1);
 					}
 					onInvalidCharacter(c);
 				}

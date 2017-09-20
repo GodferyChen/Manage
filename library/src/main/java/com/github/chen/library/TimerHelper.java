@@ -18,7 +18,7 @@ public class TimerHelper implements Serializable {
     public int executions = 0;
     public int executionsMax = 10;
 
-    public TimerHelper(long timeOut, int executionsMax){
+    public TimerHelper(long timeOut, int executionsMax) {
         super();
         this.timeOut = timeOut;
         this.executionsMax = executionsMax;
@@ -27,49 +27,48 @@ public class TimerHelper implements Serializable {
     /**
      * 计时器重置
      */
-    public void timeOutCancel(){
-        if(timeOutTimer != null){
+    public void timeOutCancel() {
+        if (timeOutTimer != null) {
             timeOutTimer.cancel();
             timeOutTimer = null;
         }
     }
 
-
     /**
      * 状态重置
      */
-    public void reset(){
-        if(timeOutTimer != null){
+    public void reset() {
+        if (timeOutTimer != null) {
             timeOutTimer.cancel();
             timeOutTimer = null;
         }
         executions = 0;
     }
 
-
     /**
      * 判断次数是否越界
      *
      * @return
      */
-    public boolean isOutOfRange(){
+    public boolean isOutOfRange() {
         return executions >= executionsMax;
     }
 
     /**
      * 开始计时
      */
-    public void timingBegins(TimerTask timerTask){
+    public void timingBegins(TimerTask timerTask) {
         timeOutCancel();
         timeOutTimer = new Timer();
-        timeOutTimer.schedule(timerTask,timeOut);
+        timeOutTimer.schedule(timerTask, timeOut);
     }
 
     /**
      * 步进，当超时的时候调用，顺便可以告诉你越界了没有
+     *
      * @return
      */
-    public boolean stepping(){
+    public boolean stepping() {
         timeOutCancel();
         ++executions;
         return isOutOfRange();
