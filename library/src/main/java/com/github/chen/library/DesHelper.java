@@ -231,10 +231,10 @@ public class DesHelper {
      * @throws Exception
      */
     public static byte[] encryptBy3DesCbcLast8Mac(byte[] content, byte[] key) throws GeneralSecurityException {
-        byte[] edata = encryptBy3DesCbc(content, key);
+        byte[] data = encryptBy3DesCbc(content, key);
 
         byte[] result = new byte[8];
-        System.arraycopy(edata, edata.length - 8, result, 0, 8);
+        System.arraycopy(data, data.length - 8, result, 0, 8);
         return result;
     }
     /**
@@ -245,8 +245,10 @@ public class DesHelper {
      */
     public static byte[] xOr(byte[] b1, byte[] b2) {
         byte[] tXor = new byte[Math.min(b1.length, b2.length)];
-        for (int i = 0; i < tXor.length; i++)
+        for (int i = 0; i < tXor.length; i++){
             tXor[i] = (byte) (b1[i] ^ b2[i]); // 异或(Xor)
+        }
+
         return tXor;
     }
 

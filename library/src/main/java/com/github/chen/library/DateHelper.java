@@ -22,7 +22,6 @@ public class DateHelper {
 
     // 切割秒为 小时、分钟、秒
     public static int[] splitSec(int second) {
-
         int[] splits = new int[3];
 
         int s = second % 60;
@@ -43,7 +42,9 @@ public class DateHelper {
 
     // 根据规则和时区，把时间戳转换为字符串
     public static String string(long timestamp, String pattern, Locale locale) {
-        if (locale == null) locale = Locale.getDefault();
+        if (locale == null) {
+            locale = Locale.getDefault();
+        }
         return new SimpleDateFormat(pattern, locale).format(new Date(timestamp));
     }
 
@@ -55,7 +56,9 @@ public class DateHelper {
     // 根据规则和时区，把字符串转换为时间戳
     private static long timestamp(String datetime, String pattern, Locale locale) {
         try {
-            if (locale == null) locale = Locale.getDefault();
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
             return new SimpleDateFormat(pattern, locale).parse(datetime).getTime();
         } catch (ParseException e) {
             e.printStackTrace();
