@@ -13,6 +13,7 @@ import android.view.WindowManager;
  * 通用的菊花对话框
  */
 public class DialogHelper {
+
     public static ProgressDialog showProgressDialog(Activity activity, int
             message) {
         return showProgressDialog(activity, activity.getString(message));
@@ -114,8 +115,6 @@ public class DialogHelper {
     }
 
     public interface OnClickListener {
-
-
         /**
          * 取消按钮
          *
