@@ -1,5 +1,6 @@
 package com.github.chen.manager.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Build;
@@ -46,6 +47,7 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
         mToolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
     }
 
+    @SuppressLint("RestrictedApi")
     protected void initToolbarWithBack(String title) {
         mToolbar = (Toolbar) mRootView.findViewById(R.id.toolbar);
         mToolbar.setTitle(title);

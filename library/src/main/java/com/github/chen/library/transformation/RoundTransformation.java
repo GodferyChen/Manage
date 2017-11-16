@@ -35,7 +35,9 @@ public class RoundTransformation extends BitmapTransformation {
     }
 
     private Bitmap roundCrop(BitmapPool pool, Bitmap source) {
-        if(source == null) return null;
+        if (source == null) {
+            return null;
+        }
         int minEdge = Math.min(source.getWidth(), source.getHeight());
         int dx = (source.getWidth() - minEdge) / 2;
         int dy = (source.getHeight() - minEdge) / 2;
@@ -52,7 +54,9 @@ public class RoundTransformation extends BitmapTransformation {
 
         // Create and draw circle bitmap
         Bitmap output = pool.get(minEdge, minEdge, Bitmap.Config.ARGB_8888);
-        if (output == null) output = Bitmap.createBitmap(minEdge, minEdge, Bitmap.Config.ARGB_8888);
+        if (output == null) {
+            output = Bitmap.createBitmap(minEdge, minEdge, Bitmap.Config.ARGB_8888);
+        }
         Canvas canvas = new Canvas(output);
         canvas.drawOval(new RectF(0, 0, minEdge, minEdge), paint);
 

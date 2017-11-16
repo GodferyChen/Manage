@@ -1,5 +1,6 @@
 package com.github.chen.manager.base;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.res.TypedArray;
 import android.graphics.Color;
@@ -85,6 +86,7 @@ public class BaseActivity extends AppCompatActivity implements View.OnTouchListe
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("RestrictedApi")
     public void onlyInitToolbar(){
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         if(mToolbar != null){

@@ -23,6 +23,7 @@
         <item name="actionBarSize">48dp</item>
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="android:fitsSystemWindows">true</item>
     </style>
 
     <style name="FloatingStyle" parent="@android:style/TextAppearance">
