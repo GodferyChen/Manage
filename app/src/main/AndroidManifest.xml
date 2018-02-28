@@ -99,7 +99,8 @@
         </activity>
         <!-- <activity android:name=".ui.RxDemoActivity"/> -->
         <activity android:name=".ui.SimInfoActivity">
-
+        </activity>
+        <activity android:name=".ui.TestGuavaActivity">
         </activity>
     </application>
 

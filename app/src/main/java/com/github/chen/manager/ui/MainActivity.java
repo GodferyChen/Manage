@@ -12,6 +12,8 @@ import com.github.chen.manager.base.BaseActivity;
 import com.github.chen.manager.ui.login.LoginActivity;
 import com.google.common.base.Optional;
 
+import butterknife.OnClick;
+
 import static com.google.common.base.Strings.emptyToNull;
 
 public class MainActivity extends BaseActivity {
@@ -33,14 +35,11 @@ public class MainActivity extends BaseActivity {
             }
         });
 
-        String value = "";
-        Optional possible = Optional.fromNullable(emptyToNull(value));
-        LogHelper.e(TAG, "value is " + possible.or("empty"));
-
         appName = getPackageName();
 
     }
 
+    @Override
     public void onClick(View v) {
         Log.d(TAG, "onClick() called with: v = [" + v + "]");
         switch (v.getId()) {
@@ -65,6 +64,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_sim_info:
                 SimInfoActivity.start(mActivity);
+                break;
+            case R.id.btn_test_guava:
+                TestGuavaActivity.start(mActivity);
                 break;
             default:
                 break;

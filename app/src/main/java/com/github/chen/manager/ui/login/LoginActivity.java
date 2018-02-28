@@ -32,7 +32,6 @@ public class LoginActivity extends BaseActivity implements ILoginView {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, LoginActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 
@@ -48,7 +47,7 @@ public class LoginActivity extends BaseActivity implements ILoginView {
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                if (id == R.id.sign_in_button || id == EditorInfo.IME_NULL) {
                     //尝试登录
                     attemptLogin();
                     return true;
