@@ -26,7 +26,8 @@ public class DesHelper {
      */
     public static byte[] create3DESKey() throws GeneralSecurityException {
         KeyGenerator kg = KeyGenerator.getInstance("DESede");
-        kg.init(112);//must be equal to 112 or 168
+        //must be equal to 112 or 168
+        kg.init(112);
         byte[] key24 =  kg.generateKey().getEncoded();
         byte[] result = new byte[16];
         System.arraycopy(key24, 0, result, 0, 16);
@@ -42,12 +43,12 @@ public class DesHelper {
      * @throws GeneralSecurityException
      */
     public static byte[] encryptBy3DesCbc(byte[] content, byte[] key, byte[] ivb) throws GeneralSecurityException {
-        byte[] _3deskey = new byte[24];
-        System.arraycopy(key, 0, _3deskey, 0, 16);
-        System.arraycopy(key, 0, _3deskey, 16, 8);
+        byte[] byte3DesKey = new byte[24];
+        System.arraycopy(key, 0, byte3DesKey, 0, 16);
+        System.arraycopy(key, 0, byte3DesKey, 16, 8);
 
         Cipher cipher = Cipher.getInstance("DESede/CBC/NoPadding");
-        SecretKey secureKey = new SecretKeySpec(_3deskey, "DESede");
+        SecretKey secureKey = new SecretKeySpec(byte3DesKey, "DESede");
         IvParameterSpec iv = new IvParameterSpec(ivb);
         cipher.init(Cipher.ENCRYPT_MODE, secureKey, iv);
         return cipher.doFinal(content);
@@ -61,12 +62,12 @@ public class DesHelper {
      * @throws GeneralSecurityException
      */
     public static byte[] decryptBy3DesCbc(byte[] content, byte[] key, byte[] ivb) throws GeneralSecurityException {
-        byte[] _3deskey = new byte[24];
-        System.arraycopy(key, 0, _3deskey, 0, 16);
-        System.arraycopy(key, 0, _3deskey, 16, 8);
+        byte[] byte3DesKey = new byte[24];
+        System.arraycopy(key, 0, byte3DesKey, 0, 16);
+        System.arraycopy(key, 0, byte3DesKey, 16, 8);
 
         Cipher cipher = Cipher.getInstance("DESede/CBC/NoPadding");
-        SecretKey secureKey = new SecretKeySpec(_3deskey, "DESede");
+        SecretKey secureKey = new SecretKeySpec(byte3DesKey, "DESede");
         IvParameterSpec iv = new IvParameterSpec(ivb);
         cipher.init(Cipher.DECRYPT_MODE, secureKey, iv);
         return cipher.doFinal(content);
@@ -101,12 +102,12 @@ public class DesHelper {
      * @throws GeneralSecurityException
      */
     public static byte[] encryptBy3DesEcb(byte[] content, byte[] key) throws GeneralSecurityException {
-        byte[] _3deskey = new byte[24];
-        System.arraycopy(key, 0, _3deskey, 0, 16);
-        System.arraycopy(key, 0, _3deskey, 16, 8);
+        byte[] byte3DesKey = new byte[24];
+        System.arraycopy(key, 0, byte3DesKey, 0, 16);
+        System.arraycopy(key, 0, byte3DesKey, 16, 8);
 
         Cipher cipher = Cipher.getInstance("DESede/ECB/NoPadding");
-        SecretKey secureKey = new SecretKeySpec(_3deskey, "DESede");
+        SecretKey secureKey = new SecretKeySpec(byte3DesKey, "DESede");
         cipher.init(Cipher.ENCRYPT_MODE, secureKey);
         return cipher.doFinal(content);
     }
@@ -119,12 +120,12 @@ public class DesHelper {
      * @throws GeneralSecurityException
      */
     public static byte[] decryptBy3DesEcb(byte[] content, byte[] key) throws GeneralSecurityException {
-        byte[] _3deskey = new byte[24];
-        System.arraycopy(key, 0, _3deskey, 0, 16);
-        System.arraycopy(key, 0, _3deskey, 16, 8);
+        byte[] byte3DesKey = new byte[24];
+        System.arraycopy(key, 0, byte3DesKey, 0, 16);
+        System.arraycopy(key, 0, byte3DesKey, 16, 8);
 
         Cipher cipher = Cipher.getInstance("DESede/ECB/NoPadding");
-        SecretKey secureKey = new SecretKeySpec(_3deskey, "DESede");
+        SecretKey secureKey = new SecretKeySpec(byte3DesKey, "DESede");
         cipher.init(Cipher.DECRYPT_MODE, secureKey);
         return cipher.doFinal(content);
     }

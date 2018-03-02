@@ -20,7 +20,11 @@ public class DateHelper {
     private DateHelper() {
     }
 
-    // 切割秒为 小时、分钟、秒
+    /**
+     * 切割秒为 小时、分钟、秒
+     * @param second
+     * @return
+     */
     public static int[] splitSec(int second) {
         int[] splits = new int[3];
 
@@ -35,12 +39,23 @@ public class DateHelper {
         return splits;
     }
 
-    // 根据规则，把时间戳转换为字符串
+    /**
+     * 根据规则，把时间戳转换为字符串
+     * @param timestamp
+     * @param pattern
+     * @return
+     */
     public static String string(long timestamp, String pattern) {
         return string(timestamp, pattern, Locale.getDefault());
     }
 
-    // 根据规则和时区，把时间戳转换为字符串
+    /**
+     * 根据规则和时区，把时间戳转换为字符串
+     * @param timestamp
+     * @param pattern
+     * @param locale
+     * @return
+     */
     public static String string(long timestamp, String pattern, Locale locale) {
         if (locale == null) {
             locale = Locale.getDefault();
@@ -48,12 +63,23 @@ public class DateHelper {
         return new SimpleDateFormat(pattern, locale).format(new Date(timestamp));
     }
 
-    // 根据规则，把字符串转换为时间戳
+    /**
+     * 根据规则，把字符串转换为时间戳
+     * @param datetime
+     * @param pattern
+     * @return
+     */
     public static long timestamp(String datetime, String pattern) {
         return timestamp(datetime, pattern, Locale.getDefault());
     }
 
-    // 根据规则和时区，把字符串转换为时间戳
+    /**
+     * 根据规则和时区，把字符串转换为时间戳
+     * @param datetime
+     * @param pattern
+     * @param locale
+     * @return
+     */
     private static long timestamp(String datetime, String pattern, Locale locale) {
         try {
             if (locale == null) {

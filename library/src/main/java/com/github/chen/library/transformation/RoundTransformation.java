@@ -17,7 +17,10 @@ import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
 
 /**
- * Created by chen on 2016/7/20.
+ * @author chen
+ * @date 2018/3/1
+ * @Description 圆头像的
+ * @version 1.0.0
  */
 public class RoundTransformation extends BitmapTransformation {
 

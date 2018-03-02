@@ -22,7 +22,6 @@ public class ANSIMacHelper {
      * @throws GeneralSecurityException
      */
     public static byte[] calculateANSIX9_9MAC(byte[] key, byte[] data) throws GeneralSecurityException {
-
         final int dataLength = data.length;
         final int lastLength = dataLength % 8;
         final int lastBlockLength = lastLength == 0 ? 8 : lastLength;
@@ -54,8 +53,9 @@ public class ANSIMacHelper {
      * @throws GeneralSecurityException
      */
     public static byte[] calculateANSIX9_19MAC(byte[] key, byte[] data) throws GeneralSecurityException {
-        if (key == null || data == null)
+        if (key == null || data == null){
             return null;
+        }
 
         if (key.length != 16) {
             throw new RuntimeException("秘钥长度错误.");

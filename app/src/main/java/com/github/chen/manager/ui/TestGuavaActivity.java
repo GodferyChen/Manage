@@ -34,5 +34,7 @@ public class TestGuavaActivity extends AppCompatActivity {
         Preconditions.checkArgument(false,"hahhhhhhhh ","error return value","I don't known " +
                 "what to do");
 
+
+
     }
 }

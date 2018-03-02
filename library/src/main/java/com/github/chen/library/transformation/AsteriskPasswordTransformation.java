@@ -3,10 +3,12 @@ package com.github.chen.library.transformation;
 import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 
-/*
- *星号的实现方法 
- * 
- * */
+/**
+ * @author chen
+ * @date 2018/3/1
+ * @Description 星号的实现方法
+ * @version 1.0.0
+ */
 public class AsteriskPasswordTransformation extends PasswordTransformationMethod {
     @Override
     public CharSequence getTransformation(CharSequence source, View view) {
