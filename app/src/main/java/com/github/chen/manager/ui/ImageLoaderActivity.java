@@ -26,7 +26,6 @@ public class ImageLoaderActivity extends BaseActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ImageLoaderActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 

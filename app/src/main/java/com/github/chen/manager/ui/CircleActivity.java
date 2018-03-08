@@ -12,7 +12,6 @@ public class CircleActivity extends BaseActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, CircleActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 

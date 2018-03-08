@@ -2,16 +2,19 @@ package com.github.chen.manager.ui;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
-import com.github.chen.library.LogHelper;
 import com.github.chen.manager.R;
-import com.google.common.base.Optional;
-import com.google.common.base.Preconditions;
 
-import static com.google.common.base.Strings.emptyToNull;
+import java8.util.Optional;
 
+/**
+ * @author chen
+ * @date 2018/3/5
+ * @Description 测试Guava库
+ * @version 1.0.0
+ */
 public class TestGuavaActivity extends AppCompatActivity {
 
     private static final String TAG = "TestGuavaActivity";
@@ -26,15 +29,49 @@ public class TestGuavaActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_guava);
 
+        Person person = new Person();
+        Optional<Person> personOptional = Optional.ofNullable(person);
+        personOptional.ifPresent(System.out::println);
+        Person object = new Person("raki",26,1);
+        personOptional.orElse(object);
+    }
 
-        String value = "";
-        Optional possible = Optional.fromNullable(emptyToNull(value));
-        LogHelper.e(TAG, "value is " + possible.or("empty"));
+    class Person {
+        private String name;
+        private int age;
+        private int sex;
 
-        Preconditions.checkArgument(false,"hahhhhhhhh ","error return value","I don't known " +
-                "what to do");
+        public Person() {
+        }
 
+        public Person(String name, int age, int sex) {
+            this.name = name;
+            this.age = age;
+            this.sex = sex;
+        }
 
+        public String getName() {
+            return name;
+        }
 
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        public int getSex() {
+            return sex;
+        }
+
+        public void setSex(int sex) {
+            this.sex = sex;
+        }
     }
 }

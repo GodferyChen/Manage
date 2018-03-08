@@ -21,7 +21,6 @@ public class TextInputActivity extends BaseActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, TextInputActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 
@@ -41,12 +40,7 @@ public class TextInputActivity extends BaseActivity {
         mFeedback = (TextInputEditText) findViewById(R.id.edit_feedback);
 
         Button submitBtn = (Button) findViewById(R.id.submit_btn);
-        submitBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                controlAction();
-            }
-        });
+        submitBtn.setOnClickListener(v ->  controlAction());
     }
 
     private void controlAction() {

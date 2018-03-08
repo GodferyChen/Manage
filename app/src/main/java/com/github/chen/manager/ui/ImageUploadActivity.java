@@ -3,6 +3,7 @@ package com.github.chen.manager.ui;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.Toolbar;
@@ -20,6 +21,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import cn.finalteam.rxgalleryfinal.RxGalleryFinal;
 import cn.finalteam.rxgalleryfinal.bean.MediaBean;
@@ -36,7 +38,6 @@ public class ImageUploadActivity extends BaseActivity {
 
     public static void start(Context context) {
         Intent starter = new Intent(context, ImageUploadActivity.class);
-//        starter.putExtra();
         context.startActivity(starter);
     }
 
@@ -91,8 +92,10 @@ public class ImageUploadActivity extends BaseActivity {
 
                     } else {
                     }
+
                     LogHelper.tS(mAppContext, object.toString());
                 }
+
             }
 
             @Override

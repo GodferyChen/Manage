@@ -176,11 +176,9 @@ public class RetrofitHelper {
                 replace = str;
             }
             builder.append(replace);
-//            System.out.println(replace);
             builder.append(";");
         }
         String cookies = builder.toString();
-//        System.out.println(cookies);
 //        cookies = "DiabetesDoctorCookie=7ZrZnoQuu%2B2J8Y5rTKpZIAth42%2BR4DB9zxcaIWugNwYo1o6SZufOLyfumn1l5EGpqTPwMklqmrkP%0AFS" +
 //                "%2F32sApO4YQvoJqr7S2YZsSYl3zP8JdcwD89iEvKLF5YSm3YtAbzFxM4Lztjv0%3D; domain=tnb.hanyouapp.com; path=/;";
         CookieManager cookieManager = CookieManager.getInstance();
@@ -243,7 +241,6 @@ public class RetrofitHelper {
             if (packageInfo.versionCode != user.versionCode) {
                 user.versionCode = packageInfo.versionCode;
                 user.save();
-//                BroadcastHelper.send(Config.ACTION_USER_LOGOUT);
                 LoginActivity.start(context);
             }
         } catch (PackageManager.NameNotFoundException e) {

@@ -90,7 +90,8 @@ public class SimpleWebActivity extends BaseActivity {
         url = getIntent().getStringExtra(ARG_URL);
         progressBar = (ProgressBar) findViewById(R.id.web_progress_bar);
         webView = (WebView) findViewById(R.id.web_view);
-        RetrofitHelper.webCookie(mActivity);//设置cookie
+        //设置cookie
+        RetrofitHelper.webCookie(mActivity);
         setUpWebViewDefaults(webView);
         // Check whether we're recreating a previously destroyed instance
         if (savedInstanceState != null) {

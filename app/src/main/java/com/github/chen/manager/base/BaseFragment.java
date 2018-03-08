@@ -35,7 +35,8 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable
+            Bundle savedInstanceState) {
         return mRootView;
     }
 
@@ -55,7 +56,8 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
             ((AppCompatActivity) getActivity()).setSupportActionBar(mToolbar);
             mActionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
             if (mActionBar != null) {
-                mActionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar.DISPLAY_SHOW_TITLE);
+                mActionBar.setDisplayOptions(ActionBar.DISPLAY_HOME_AS_UP | ActionBar
+                        .DISPLAY_SHOW_TITLE);
                 mActionBar.setDefaultDisplayHomeAsUpEnabled(true);
             }
         }
@@ -95,6 +97,8 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
                     view.setTranslationZ(DimenHelper.dip2px(mActivity, 0f));
                 }
                 break;
+            default:
+                break;
         }
         return false;
     }
@@ -109,7 +113,6 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        BroadcastHelper.register(this, this);
         isDestroy = false;
         mAppContext = (AppContext) mActivity.getApplicationContext();
     }
@@ -119,11 +122,6 @@ public class BaseFragment extends Fragment implements View.OnTouchListener, View
     public void onDestroy() {
         super.onDestroy();
         isDestroy = true;
-//        BroadcastHelper.unregister(this);
-//        for (Call call : mCallList) {
-//            if (call != null) call.cancel();
-//        }
-//        mCallList.clear();
     }
 
     public void onAttachedToWindow() {
